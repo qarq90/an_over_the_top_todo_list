@@ -7,14 +7,14 @@ import {useAtom} from "jotai";
 import {useEffect} from "react";
 
 export default function Home() {
-
     const router = useRouter()
-
     const [currentlyLoggedInUser] = useAtom(currentUserName)
 
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
+    useEffect(() => {
+        if (currentlyLoggedInUser === "") {
+            router.push("/auth/login");
+        }
+    }, []);
 
     return (
         <div className={globals.Container}>
