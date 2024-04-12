@@ -1,0 +1,41 @@
+import {NextResponse} from "next/server"
+import connect from "@/lib/connection.js"
+import Users from "@/models/User.js";
+
+export const POST = async (request) => {
+    try {
+        const {email_id, password, phone_number, user_name} = await request.json()
+
+        await connect()
+
+        let currentUser = await Users.updateOne(
+            {
+                email_id: email_id,
+            }, {
+                email_id: email_id,
+                password: password,
+                phone_number: phone_number,
+                user_name: user_name,
+            }
+        )
+
+        if (currentUser) {
+            return NextResponse.json({
+                message: 'Account Updated Successfully',
+                status: true,
+                currentUser
+            })
+        } else {
+            return NextResponse.json({
+                message: 'Failed to update Account',
+                status: false,
+                currentUser
+            })
+        }
+
+    } catch
+        (error) {
+        console.log(error)
+        return NextResponse.json({message: 'Error connecting to Database: ' + error, result: false})
+    }
+}
