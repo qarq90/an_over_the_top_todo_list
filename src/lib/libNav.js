@@ -1,4 +1,4 @@
-import {FaArchive, FaDoorOpen, FaHistory, FaHome, FaListAlt, FaPlus, FaUser, FaUserPlus} from "react-icons/fa";
+import {FaArchive, FaDoorOpen, FaHistory, FaHome, FaListAlt, FaPlus, FaUser, FaUserPlus} from "react-icons/fa"
 
 export const authLinks = [
     {

@@ -1,10 +1,13 @@
-"use client";
+"use client"
 
-import {useAtom} from 'jotai';
+import {useAtom} from 'jotai'
 import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js"
-import {useRouter} from "next/navigation.js";
-import {FaKey, FaMailBulk, FaPhone, FaUser} from "react-icons/fa";
+import {useRouter} from "next/navigation.js"
+import {FaKey, FaMailBulk, FaPhone, FaUser} from "react-icons/fa"
 import auth from "@/styles/auth/auth.module.css"
+import {useRef} from "react"
+import {Toast} from "primereact/toast"
+import {emailRegex, phoneRegex, showCustomToast} from "@/lib/helper.js"
 
 const SignUp = () => {
 
@@ -14,24 +17,43 @@ const SignUp = () => {
     const [password, setPassword] = useAtom(currentUserPassword)
     const [phone, setPhone] = useAtom(currentUserPhoneNumber)
     const [username, setUsername] = useAtom(currentUserName)
+    const toastRef = useRef()
 
     const signupHandler = async () => {
 
-        let emailRegex = /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
-        let phoneRegex = /^\d{10}$/
-
         if (email === "" || password === "" || phone === "" || username === "") {
-            alert("Input Fields cannot be Empty")
+            showCustomToast(
+                "error",
+                "Empty Fields",
+                "Please fill in all required fields.",
+                "Please fill in all required fields.",
+                toastRef,
+                2000
+            )
             return
         }
 
         if (!emailRegex.test(email)) {
-            alert("Invalid Email address")
+            showCustomToast(
+                "error",
+                "Invalid Email Format",
+                "Please enter a valid email address.",
+                "Valid email address format is yourname@example.com.",
+                toastRef,
+                2000
+            )
             return
         }
 
         if (!phoneRegex.test(phone)) {
-            alert("Invalid Phone number")
+            showCustomToast(
+                "error",
+                "Invalid Phone Number Format",
+                "Please enter a valid phone number.",
+                "A Valid Phone Number contains 10 digits",
+                toastRef,
+                2000
+            )
             return
         }
 
@@ -56,7 +78,14 @@ const SignUp = () => {
             if (data.status) {
                 router.push("/")
             } else {
-                alert("User already Exists")
+                showCustomToast(
+                    "error",
+                    "Account Exists",
+                    "You already have an account with this email address.",
+                    "You already have an account with this email address.",
+                    toastRef,
+                    2000
+                )
             }
 
         } catch (error) {
@@ -92,6 +121,7 @@ const SignUp = () => {
                        type="text"
                        onChange={(e) => setUsername(e.target.value)}/>
                 <button className={auth.Submit} onClick={signupHandler}>Sign Up</button>
+                <Toast ref={toastRef} position="top-right"/>
             </div>
         </>
     )

@@ -1,8 +1,8 @@
 import styledHome from "@/styles/home/home.module.css"
-import {ArcElement, Chart as ChartJS, Legend, Tooltip} from "chart.js";
-import {Doughnut} from "react-chartjs-2";
+import {ArcElement, Chart as ChartJS, Legend, Tooltip} from "chart.js"
+import {Doughnut} from "react-chartjs-2"
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend)
 export const ArchivedTasks = ({archivedLength, allTasksLength, activeTaskLength}) => {
     const data = {
         labels: ['Total Tasks', 'Archived Tasks'],
@@ -21,7 +21,7 @@ export const ArchivedTasks = ({archivedLength, allTasksLength, activeTaskLength}
                 borderWidth: 2,
             },
         ],
-    };
+    }
     return (
         <div className={styledHome.container}>
             <h1>Archived Tasks : {archivedLength}/{activeTaskLength}</h1>

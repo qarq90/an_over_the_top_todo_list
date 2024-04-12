@@ -1,11 +1,11 @@
-import React from 'react';
-import {authLinks} from "@/lib/libNav.js";
+import React from 'react'
+import {authLinks} from "@/lib/libNav.js"
 import nav from "@/styles/ui/nav.module.css"
-import {usePathname} from "next/navigation.js";
-import Link from "next/link";
+import {usePathname} from "next/navigation.js"
+import Link from "next/link"
 
 export default function AuthNav() {
-    const currentPage = usePathname();
+    const currentPage = usePathname()
 
     return (
         <div className={nav.nav}>

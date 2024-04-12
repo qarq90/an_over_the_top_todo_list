@@ -9,7 +9,7 @@ const reviewSchema = new Schema({
     user_name: String,
 })
 
-let Users;
+let Users
 
 try {
     Users = mongoose.model('Users')

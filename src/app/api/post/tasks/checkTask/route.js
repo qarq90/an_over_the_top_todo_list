@@ -4,24 +4,25 @@ import Task from "@/models/Task.js"
 
 export const POST = async (request) => {
     try {
-        const {user} = await request.json()
+        const {_id} = await request.json()
 
         await connect()
 
-        let result = await Task.find(
-            {
-                user: user,
-            })
+        let result = await Task.updateOne({
+            _id
+        }, {
+            status: "completed",
+        })
 
         if (result) {
             return NextResponse.json({
-                message: 'Tasks Fetched Successfully.',
+                message: 'Tasks Update Successfully.',
                 status: true,
                 result: result
             })
         } else {
             return NextResponse.json({
-                message: 'Failed to fetch tasks.',
+                message: 'Failed to update',
                 status: false,
                 result: result
             })

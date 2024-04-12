@@ -8,10 +8,10 @@ export const POST = async (request) => {
 
         await connect()
 
-        let result = await Task.find(
-            {
-                user: user,
-            })
+        let result = await Task.find({
+            user: user,
+            status: "completed"
+        })
 
         if (result) {
             return NextResponse.json({

@@ -1,11 +1,13 @@
 "use client"
 
-import {useRouter} from "next/navigation.js";
+import {useRouter} from "next/navigation.js"
 import form from "@/styles/pages/add/form.module.css"
-import {FaPlus, FaQuestionCircle, FaTasks} from "react-icons/fa";
-import {currentUserName} from "@/states/userState.js";
-import {useAtom} from "jotai";
-import {useState} from "react";
+import {FaPlus, FaQuestionCircle, FaTasks} from "react-icons/fa"
+import {currentUserName} from "@/states/userState.js"
+import {useAtom} from "jotai"
+import {useRef, useState} from "react"
+import {showCustomToast} from "@/lib/helper.js"
+import {Toast} from "primereact/toast"
 
 const AddTask = () => {
 
@@ -15,11 +17,20 @@ const AddTask = () => {
 
     const [taskName, setTaskName] = useState("")
     const [taskContent, setTaskContent] = useState("")
+    const toastRef = useRef()
 
     async function addTaskHandler() {
 
         if (taskName === "" || taskContent === "") {
-            console.log("Input Fields are required")
+            showCustomToast(
+                "error",
+                "Empty Fields",
+                "Please fill in all required fields.",
+                "Please fill in all required fields.",
+                toastRef,
+                2000
+            )
+            return
         }
 
         const taskDate = new Date()
@@ -47,9 +58,24 @@ const AddTask = () => {
             const data = await response.json()
 
             if (data.status) {
+                showCustomToast(
+                    "success",
+                    "Task Added",
+                    "Task Added Successfully",
+                    "Task Added Successfully",
+                    toastRef,
+                    2000
+                )
                 router.push("/pages/tasks")
             } else {
-                alert("Error adding task")
+                showCustomToast(
+                    "error",
+                    "Error Adding Task",
+                    "Something went wrong, could not add tasks.",
+                    "Something went wrong, could not add tasks.",
+                    toastRef,
+                    2000
+                )
             }
 
         } catch (error) {
@@ -72,8 +98,9 @@ const AddTask = () => {
                       onChange={(e) => setTaskContent(e.target.value)}
             />
             <button className={form.Submit} onClick={addTaskHandler}><FaPlus/> Add Task</button>
+            <Toast ref={toastRef} position="top-right"/>
         </div>
     )
 }
 
-export default AddTask;
+export default AddTask

@@ -1,14 +1,14 @@
-import React from 'react';
-import {pagesBottomLinks, pagesTopLinks} from "@/lib/libNav.js";
+import React from 'react'
+import {pagesBottomLinks, pagesTopLinks} from "@/lib/libNav.js"
 import nav from "@/styles/ui/nav.module.css"
-import {usePathname} from "next/navigation.js";
-import Link from "next/link";
-import {useAtom} from "jotai";
-import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js";
+import {usePathname} from "next/navigation.js"
+import Link from "next/link"
+import {useAtom} from "jotai"
+import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js"
 
 export default function PagesNav() {
 
-    const currentPage = usePathname();
+    const currentPage = usePathname()
 
     const [email, setEmail] = useAtom(currentUserEmail)
     const [password, setPassword] = useAtom(currentUserPassword)

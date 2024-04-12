@@ -21,3 +21,39 @@
 .SubContainer {
     padding: 1rem;
 }
+
+.skeletonContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.skeletonItem {
+    width: 100%;
+    height: 75px;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 4px;
+}
+
+@keyframes skeleton-animation {
+    0% {
+        opacity: 0.6;
+    }
+    25%{
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    75%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.skeletonItem {
+    animation: skeleton-animation 2s ease-in-out infinite;
+}

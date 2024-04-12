@@ -1,24 +1,24 @@
 "use client"
 
-import {useRouter} from "next/navigation.js";
-import {useEffect, useState} from "react";
-import globals from "@/styles/globals.module.css";
-import {FaPenAlt, FaPen, FaQuestionCircle, FaTasks} from "react-icons/fa";
-import form from "@/styles/pages/add/form.module.css";
+import {useRouter} from "next/navigation.js"
+import {useEffect, useState} from "react"
+import globals from "@/styles/globals.module.css"
+import {FaPenAlt, FaPen, FaQuestionCircle, FaTasks} from "react-icons/fa"
+import form from "@/styles/pages/add/form.module.css"
 
 export default function EditPage() {
-    const router = useRouter();
-    const [taskId, setTaskId] = useState("");
-    const [taskTitle, setTaskTitle] = useState("");
-    const [taskDescription, setTaskDescription] = useState("");
+    const router = useRouter()
+    const [taskId, setTaskId] = useState("")
+    const [taskTitle, setTaskTitle] = useState("")
+    const [taskDescription, setTaskDescription] = useState("")
 
     useEffect(() => {
         const fetchTaskData = async () => {
             try {
-                const searchParams = new URLSearchParams(window.location.search);
-                const id = searchParams.get("taskId");
-                setTaskId(id);
-                console.log(id);
+                const searchParams = new URLSearchParams(window.location.search)
+                const id = searchParams.get("taskId")
+                setTaskId(id)
+                console.log(id)
 
                 const response = await fetch(`/api/post/tasks/fetchTaskToEdit`, {
                     method: "POST",
@@ -26,27 +26,27 @@ export default function EditPage() {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({_id: id}),
-                });
+                })
 
-                const data = await response.json();
+                const data = await response.json()
                 if (data.status) {
-                    setTaskTitle(data.result.title);
-                    setTaskDescription(data.result.task);
+                    setTaskTitle(data.result.title)
+                    setTaskDescription(data.result.task)
                 } else {
-                    alert("Failed to fetch task data");
+                    alert("Failed to fetch task data")
                 }
             } catch (error) {
-                console.error("Error fetching task data:", error);
+                console.error("Error fetching task data:", error)
             }
-        };
+        }
 
-        fetchTaskData();
-    }, []);
+        fetchTaskData()
+    }, [])
 
     const updateTaskTitle = async () => {
         if (taskTitle === "" || taskDescription === "") {
-            console.log("Input Fields are required");
-            return;
+            console.log("Input Fields are required")
+            return
         }
 
         try {
@@ -56,18 +56,18 @@ export default function EditPage() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({_id: taskId, title: taskTitle, task: taskDescription}),
-            });
+            })
 
-            const data = await response.json();
+            const data = await response.json()
             if (data.status) {
-                router.push("/pages/tasks");
+                router.push("/pages/tasks")
             } else {
-                alert("Error updating task");
+                alert("Error updating task")
             }
         } catch (error) {
-            console.error("Error updating task:", error);
+            console.error("Error updating task:", error)
         }
-    };
+    }
 
     return (
         <div className={globals.Container}>
@@ -97,5 +97,5 @@ export default function EditPage() {
                 </button>
             </div>
         </div>
-    );
+    )
 }

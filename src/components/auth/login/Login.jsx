@@ -1,10 +1,13 @@
 "use client"
 
-import {useRouter} from "next/navigation.js";
-import {useAtom} from 'jotai';
-import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js";
-import {FaKey, FaMailBulk} from "react-icons/fa";
+import {useRouter} from "next/navigation.js"
+import {useAtom} from 'jotai'
+import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js"
+import {FaKey, FaMailBulk} from "react-icons/fa"
 import auth from "@/styles/auth/auth.module.css"
+import {showCustomToast} from "@/lib/helper.js"
+import {Toast} from "primereact/toast"
+import {useRef} from "react"
 
 const Login = () => {
 
@@ -14,18 +17,33 @@ const Login = () => {
     const [password, setPassword] = useAtom(currentUserPassword)
     const [phone, setPhone] = useAtom(currentUserPhoneNumber)
     const [username, setUsername] = useAtom(currentUserName)
+    const toastRef = useRef()
 
     const loginHandler = async () => {
 
         let emailRegex = /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
 
         if (email === "" || password === "") {
-            alert("Input Fields cannot be Empty")
+            showCustomToast(
+                "error",
+                "Empty Fields",
+                "Please fill in all required fields.",
+                "Please fill in all required fields.",
+                toastRef,
+                2000
+            )
             return
         }
 
         if (!emailRegex.test(email)) {
-            alert("Invalid Email address")
+            showCustomToast(
+                "error",
+                "Invalid Email Format",
+                "Please enter a valid email address.",
+                "Valid email address format is yourname@example.com.",
+                toastRef,
+                2000
+            )
             return
         }
 
@@ -53,7 +71,14 @@ const Login = () => {
                 setUsername(data.result.user_name)
                 router.push("/")
             } else {
-                alert("Incorrect email or password")
+                showCustomToast(
+                    "error",
+                    "Incorrect Credentials",
+                    "Email and Password are Incorrect.",
+                    "Email and Password are Incorrect.",
+                    toastRef,
+                    2000
+                )
             }
 
         } catch (error) {
@@ -76,8 +101,9 @@ const Login = () => {
                    type="text"
                    onChange={(e) => setPassword(e.target.value)}/>
             <button className={auth.Submit} onClick={loginHandler}>Login</button>
+            <Toast ref={toastRef} position="top-right"/>
         </div>
     )
 }
 
-export default Login;
+export default Login

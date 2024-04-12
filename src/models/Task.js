@@ -12,7 +12,7 @@ const reviewSchema = new Schema({
     deleted: Boolean,
 })
 
-let Task;
+let Task
 
 try {
     Task = mongoose.model('Task')
