@@ -5,7 +5,7 @@ export default async function connect() {
         return;
     }
     try {
-        await mongoose.connect("mongodb+srv://admin:FV08jMOzSNBz1eVf@cluster0.vrpea8c.mongodb.net/over_the_top_todo_list?retryWrites=true&w=majority&appName=Cluster0");
+        await mongoose.connect(process.env.MONGODB_URI);
         console.log("Connected to MongoDB");
     } catch (error) {
         console.log(error);
