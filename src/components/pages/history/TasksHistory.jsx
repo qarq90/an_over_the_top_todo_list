@@ -1,19 +1,8 @@
 "use client"
 
-import {useAtom} from "jotai";
-import {currentUserName} from "@/states/userState.js";
-import {useRouter} from "next/navigation.js";
 import styledTasks from "@/styles/pages/tasks/tasks.module.css";
 
 const HistoryCard = ({tasks}) => {
-
-    const router = useRouter();
-
-    const [currentlyLoggedInUser] = useAtom(currentUserName)
-
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
 
     let taskTitle = tasks.title;
     let taskDescription = tasks.task;

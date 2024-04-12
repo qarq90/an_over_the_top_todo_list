@@ -2,20 +2,13 @@ import styledProfile from "@/styles/pages/profile/profile.module.css"
 import {FaKey, FaMailBulk, FaPhone, FaUser} from "react-icons/fa";
 import {useAtom} from "jotai";
 import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js";
-import {useRouter} from "next/navigation.js";
 
 const Profile = () => {
-    const router = useRouter();
-    const [currentlyLoggedInUser] = useAtom(currentUserName);
 
     const [email, setEmail] = useAtom(currentUserEmail);
     const [password, setPassword] = useAtom(currentUserPassword);
     const [phone, setPhone] = useAtom(currentUserPhoneNumber);
     const [username, setUsername] = useAtom(currentUserName);
-
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
 
     const EditHandler = async () => {
         let emailRegex = /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/

@@ -13,10 +13,6 @@ const AddTask = () => {
 
     const [currentlyLoggedInUser] = useAtom(currentUserName)
 
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
-
     const [taskName, setTaskName] = useState("")
     const [taskContent, setTaskContent] = useState("")
 

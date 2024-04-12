@@ -9,13 +9,16 @@ import {useRouter} from "next/navigation.js";
 import ArchivedTasks from "@/components/pages/archived/ArchivedTasks.jsx";
 
 export default function ArchivedPage() {
-    const router = useRouter();
+
+    const router = useRouter()
 
     const [currentlyLoggedInUser] = useAtom(currentUserName)
 
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
+    useEffect(() => {
+        if (currentlyLoggedInUser === "") {
+            router.push("/auth/login");
+        }
+    }, []);
 
     const [tasks, setTasks] = useState([]);
 

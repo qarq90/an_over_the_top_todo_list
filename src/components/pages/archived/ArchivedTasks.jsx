@@ -1,9 +1,7 @@
 "use client"
 
 import {useRouter} from "next/navigation.js";
-import {FaArchive, FaEdit, FaTrash} from "react-icons/fa";
-import {currentUserName} from "@/states/userState.js";
-import {useAtom} from "jotai";
+import {FaArchive} from "react-icons/fa";
 import styledTasks from "@/styles/pages/tasks/tasks.module.css";
 
 const ArchivedTasks = ({tasks}) => {
@@ -25,12 +23,6 @@ const ArchivedTasks = ({tasks}) => {
     let taskStatus = tasks.status;
 
     const taskID = tasks._id;
-
-    const [currentlyLoggedInUser] = useAtom(currentUserName)
-
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
 
     const request = {
         _id: taskID,

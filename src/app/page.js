@@ -7,7 +7,9 @@ import {useAtom} from "jotai";
 import {useEffect} from "react";
 
 export default function Home() {
+
     const router = useRouter()
+
     const [currentlyLoggedInUser] = useAtom(currentUserName)
 
     useEffect(() => {

@@ -10,13 +10,15 @@ import {FaListAlt} from "react-icons/fa";
 
 export default function TasksPage() {
 
-    const router = useRouter();
+    const router = useRouter()
 
     const [currentlyLoggedInUser] = useAtom(currentUserName)
 
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
+    useEffect(() => {
+        if (currentlyLoggedInUser === "") {
+            router.push("/auth/login");
+        }
+    }, []);
 
     const [tasks, setTasks] = useState([]);
 

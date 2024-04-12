@@ -9,13 +9,16 @@ import {useRouter} from "next/navigation.js";
 import HistoryCard from "@/components/pages/history/TasksHistory.jsx";
 
 export default function HistoryPage() {
-    const router = useRouter();
+
+    const router = useRouter()
 
     const [currentlyLoggedInUser] = useAtom(currentUserName)
 
-    if (currentlyLoggedInUser === "") {
-        router.push("/auth/login");
-    }
+    useEffect(() => {
+        if (currentlyLoggedInUser === "") {
+            router.push("/auth/login");
+        }
+    }, []);
 
     const [tasks, setTasks] = useState([]);
 
