@@ -9,6 +9,7 @@ import {currentUserName} from "@/states/userState.js";
 import {useRouter} from "next/navigation.js";
 
 export default function ProfilePage() {
+
     const router = useRouter()
 
     const [currentlyLoggedInUser] = useAtom(currentUserName)
@@ -18,6 +19,7 @@ export default function ProfilePage() {
             router.push("/auth/login");
         }
     }, []);
+
     return (
         <>
             <div className={globals.Container}>

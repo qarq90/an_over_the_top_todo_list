@@ -50,10 +50,6 @@ export default function TasksPage() {
         }, [currentlyLoggedInUser]
     )
 
-    useEffect(() => {
-        console.log(tasks);
-    }, [tasks]);
-
     return (
         <>
             <div className={globals.Container}>

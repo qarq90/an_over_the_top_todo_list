@@ -76,6 +76,10 @@ export const TaskCard = ({tasks}) => {
         }
     }
 
+    const editTaskHandler =  () => {
+        router.push("/pages/edit?taskId=" + taskID);
+    }
+
     return (
         <>
             <div className={styledTasks.tasksContainer}>
@@ -87,7 +91,7 @@ export const TaskCard = ({tasks}) => {
                 </div>
                 <div className={styledTasks.buttonContainer}>
                     <button onClick={archiveTaskHandler}><FaArchive/></button>
-                    <button><FaEdit/></button>
+                    <button onClick={editTaskHandler}><FaEdit/></button>
                     <button onClick={deleteTaskHandler}><FaTrash/></button>
                 </div>
             </div>

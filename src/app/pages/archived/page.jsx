@@ -50,9 +50,6 @@ export default function ArchivedPage() {
         }, [currentlyLoggedInUser]
     )
 
-    useEffect(() => {
-        console.log(tasks);
-    }, [tasks]);
     return (
         <>
             <div className={globals.Container}>

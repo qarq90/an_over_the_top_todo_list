@@ -49,10 +49,6 @@ export default function HistoryPage() {
         }, [currentlyLoggedInUser]
     )
 
-    useEffect(() => {
-        console.log(tasks);
-    }, [tasks]);
-
     return (
         <>
             <div className={globals.Container}>
