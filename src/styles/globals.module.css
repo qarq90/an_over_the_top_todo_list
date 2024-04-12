@@ -1,0 +1,23 @@
+.Container {
+    width: 73%;
+    padding: 5rem 20rem;
+    height: auto;
+}
+
+.PageHeader {
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    width: 100%;
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 1rem;
+}
+
+.PageHeader svg {
+    padding-right: 1rem;
+}
+
+.SubContainer {
+    padding: 1rem;
+}

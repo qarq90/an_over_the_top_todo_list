@@ -1,19 +1,24 @@
 "use client"
 
 import {useRouter} from "next/navigation.js";
-import form from "@/styles/pages/form.module.css"
+import form from "@/styles/pages/add/form.module.css"
 import {FaPlus, FaQuestionCircle, FaTasks} from "react-icons/fa";
 import {currentUserName} from "@/states/userState.js";
-import {useAtom, useAtomValue} from "jotai";
-import {useEffect, useState} from "react";
+import {useAtom} from "jotai";
+import {useState} from "react";
 
 const AddTask = () => {
+
     const router = useRouter()
+
+    const [currentlyLoggedInUser] = useAtom(currentUserName)
+
+    if (currentlyLoggedInUser === "") {
+        router.push("/auth/login");
+    }
 
     const [taskName, setTaskName] = useState("")
     const [taskContent, setTaskContent] = useState("")
-
-    let userName = useAtomValue(currentUserName)
 
     async function addTaskHandler() {
 
@@ -24,15 +29,18 @@ const AddTask = () => {
         const taskDate = new Date()
 
         const request = {
-            user: userName,
+            user: currentlyLoggedInUser,
             title: taskName,
             task: taskContent,
             date: taskDate,
             status: "pending",
+            archived: false,
+            deleted: false,
         }
 
         try {
-            const response = await fetch(`/api/post/addTask`, {
+
+            const response = await fetch(`/api/post/tasks/addTask`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -42,18 +50,16 @@ const AddTask = () => {
 
             const data = await response.json()
 
-            console.log(data.message)
-            router.push("/")
+            if (data.status) {
+                router.push("/pages/tasks")
+            } else {
+                alert("Error adding task")
+            }
+
         } catch (error) {
             console.log(error)
         }
     }
-
-    const [userN] = useAtom(currentUserName)
-
-    useEffect(() => {
-        console.log(userN)
-    }, []);
 
     return (
         <div className={form.AuthContainer}>

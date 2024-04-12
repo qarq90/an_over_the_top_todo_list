@@ -8,23 +8,22 @@ export const POST = async (request) => {
 
         await connect()
 
-        let isEmailAlreadyExists = await Users.findOne({
+        let result = await Users.findOne({
             email_id: email_id,
             password: password
         })
 
-        if (isEmailAlreadyExists) {
+        if (result) {
             return NextResponse.json({
                 message: 'Login Successful',
-                result: "User Logged-in Successful",
                 status: true,
-                isEmailAlreadyExists
+                result: result
             })
         } else {
             return NextResponse.json({
                 message: 'Login Failed',
-                result: "Incorrect Email and Password",
-                status: false
+                status: false,
+                result: result
             })
         }
 

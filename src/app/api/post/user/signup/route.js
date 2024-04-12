@@ -8,36 +8,31 @@ export const POST = async (request) => {
 
         await connect()
 
-        let isEmailAlreadyExists = await Users.findOne({
+        let result = await Users.findOne({
             email_id: email_id,
             password: password,
             phone_number: phone_number,
             user_name: user_name,
         })
 
-        if (isEmailAlreadyExists) {
-
+        if (result) {
             return NextResponse.json({
                 message: 'Signup Failed',
-                result: "Email already Exists",
-                status: false
+                status: false,
+                result: result
             })
-
         } else {
-
             await Users.create({
                 email_id: email_id,
                 password: password,
                 phone_number: phone_number,
                 user_name: user_name,
             })
-
             return NextResponse.json({
                 message: 'Signup Successful',
-                result: "User Signed-Up Successfully",
-                status: true
+                status: true,
+                result: result
             })
-
         }
 
     } catch (error) {

@@ -8,13 +8,25 @@ export const POST = async (request) => {
 
         await connect()
 
-        let res = await Task.deleteOne({_id})
-
-        return NextResponse.json({
-            message: 'Tasks Deleted Successfully.',
-            status: true,
-            res
+        let result = await Task.updateOne({
+            _id
+        }, {
+            deleted: true,
         })
+
+        if (result) {
+            return NextResponse.json({
+                message: 'Tasks Deleted Successfully.',
+                status: true,
+                result: result
+            })
+        } else {
+            return NextResponse.json({
+                message: 'Failed to delete',
+                status: false,
+                result: result
+            })
+        }
 
     } catch (error) {
         console.log(error)

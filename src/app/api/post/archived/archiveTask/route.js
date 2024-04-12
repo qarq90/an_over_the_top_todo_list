@@ -17,7 +17,7 @@ export const POST = async (request) => {
 
         if (result) {
             return NextResponse.json({
-                message: 'Task Archived created',
+                message: 'Task Archived successfully',
                 status: true,
                 result: result
             })

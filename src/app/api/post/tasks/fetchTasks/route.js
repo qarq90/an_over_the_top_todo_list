@@ -8,17 +8,26 @@ export const POST = async (request) => {
 
         await connect()
 
-        let usersTasks = await Task.find({
+        let result = await Task.find({
             user: user,
             status: status,
-            archived: false
+            archived: false,
+            deleted: false
         })
 
-        return NextResponse.json({
-            message: 'Tasks Fetched Successfully.',
-            result: true,
-            usersTasks
-        })
+        if (result) {
+            return NextResponse.json({
+                message: 'Tasks Fetched Successfully.',
+                status: true,
+                result: result
+            })
+        } else {
+            return NextResponse.json({
+                message: 'Failed to fetch tasks.',
+                status: false,
+                result: result
+            })
+        }
 
     } catch (error) {
         console.log(error)

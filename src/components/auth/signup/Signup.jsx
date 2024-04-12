@@ -21,17 +21,17 @@ const SignUp = () => {
         let phoneRegex = /^\d{10}$/
 
         if (email === "" || password === "" || phone === "" || username === "") {
-            console.log("Input Fields cannot be Empty")
+            alert("Input Fields cannot be Empty")
             return
         }
 
         if (!emailRegex.test(email)) {
-            console.log("Invalid Email address")
+            alert("Invalid Email address")
             return
         }
 
         if (!phoneRegex.test(phone)) {
-            console.log("Invalid Phone number")
+            alert("Invalid Phone number")
             return
         }
 
@@ -43,7 +43,7 @@ const SignUp = () => {
         }
 
         try {
-            const response = await fetch(`/api/post/signup`, {
+            const response = await fetch(`/api/post/user/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,7 +53,11 @@ const SignUp = () => {
 
             const data = await response.json()
 
-            router.push("/")
+            if (data.status) {
+                router.push("/")
+            } else {
+                alert("User already Exists")
+            }
 
         } catch (error) {
             console.log(error)
@@ -61,33 +65,35 @@ const SignUp = () => {
     }
 
     return (
-        <div className={auth.AuthContainer}>
-            <label className={auth.Label}>
-                <FaMailBulk/> Email
-            </label>
-            <input className={auth.Input}
-                   type="text"
-                   onChange={(e) => setEmail(e.target.value)}/>
-            <label className={auth.Label}>
-                <FaKey/> Password
-            </label>
-            <input className={auth.Input}
-                   type="text"
-                   onChange={(e) => setPassword(e.target.value)}/>
-            <label className={auth.Label}>
-                <FaPhone/> Phone Number
-            </label>
-            <input className={auth.Input}
-                   type="text"
-                   onChange={(e) => setPhone(e.target.value)}/>
-            <label className={auth.Label}>
-                <FaUser/> Username
-            </label>
-            <input className={auth.Input}
-                   type="text"
-                   onChange={(e) => setUsername(e.target.value)}/>
-            <button className={auth.Submit} onClick={signupHandler}>Sign Up</button>
-        </div>
+        <>
+            <div className={auth.AuthContainer}>
+                <label className={auth.Label}>
+                    <FaMailBulk/> Email
+                </label>
+                <input className={auth.Input}
+                       type="text"
+                       onChange={(e) => setEmail(e.target.value)}/>
+                <label className={auth.Label}>
+                    <FaKey/> Password
+                </label>
+                <input className={auth.Input}
+                       type="text"
+                       onChange={(e) => setPassword(e.target.value)}/>
+                <label className={auth.Label}>
+                    <FaPhone/> Phone Number
+                </label>
+                <input className={auth.Input}
+                       type="text"
+                       onChange={(e) => setPhone(e.target.value)}/>
+                <label className={auth.Label}>
+                    <FaUser/> Username
+                </label>
+                <input className={auth.Input}
+                       type="text"
+                       onChange={(e) => setUsername(e.target.value)}/>
+                <button className={auth.Submit} onClick={signupHandler}>Sign Up</button>
+            </div>
+        </>
     )
 }
 

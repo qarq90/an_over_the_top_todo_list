@@ -25,11 +25,14 @@ const HistoryCard = ({tasks}) => {
 
     taskDescription = chunks.join('\n');
     let taskDate = tasks.date.slice(0, 10);
+    let isDeleted = tasks.deleted
 
     return (
         <>
             <div className={styledTasks.tasksContainer}>
                 <div className={styledTasks.textContainer}>
+                    <div className={!isDeleted ? styledTasks.alive : styledTasks.killed}>
+                    </div>
                     <h1>Title: {taskTitle}</h1>
                     <h4>Task: {taskDescription}</h4>
                     <h5>Created on: {taskDate}</h5>

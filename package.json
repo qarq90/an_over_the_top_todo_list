@@ -1,6 +1,7 @@
 {
   "name": "priority-pro",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,9 +10,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "jotai": "^2.8.0",
+    "mongoose": "^8.3.1",
+    "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.1.4"
+    "react-icons": "^5.0.1"
   },
   "devDependencies": {
     "eslint": "^8",

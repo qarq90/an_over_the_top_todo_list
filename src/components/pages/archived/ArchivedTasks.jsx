@@ -1,15 +1,30 @@
 "use client"
 
 import {useRouter} from "next/navigation.js";
-import form from "@/styles/pages/add/form.module.css"
-import {FaPlus, FaQuestionCircle, FaTasks} from "react-icons/fa";
+import {FaArchive, FaEdit, FaTrash} from "react-icons/fa";
 import {currentUserName} from "@/states/userState.js";
 import {useAtom} from "jotai";
-import {useState} from "react";
+import styledTasks from "@/styles/pages/tasks/tasks.module.css";
 
-const ArchivedTasks = () => {
+const ArchivedTasks = ({tasks}) => {
 
-    const router = useRouter()
+    const router = useRouter();
+
+    let taskTitle = tasks.title;
+    let taskDescription = tasks.task;
+
+    const chunkSize = 75;
+    const chunks = [];
+    for (let i = 0; i < taskDescription.length; i += chunkSize) {
+        chunks.push(taskDescription.substring(i, i + chunkSize));
+    }
+
+    taskDescription = chunks.join('\n');
+
+    let taskDate = tasks.date.slice(0, 10);
+    let taskStatus = tasks.status;
+
+    const taskID = tasks._id;
 
     const [currentlyLoggedInUser] = useAtom(currentUserName)
 
@@ -17,30 +32,15 @@ const ArchivedTasks = () => {
         router.push("/auth/login");
     }
 
-    const [taskName, setTaskName] = useState("")
-    const [taskContent, setTaskContent] = useState("")
+    const request = {
+        _id: taskID,
+    }
 
-    async function addTaskHandler() {
-
-        if (taskName === "" || taskContent === "") {
-            console.log("Input Fields are required")
-        }
-
-        const taskDate = new Date()
-
-        const request = {
-            user: currentlyLoggedInUser,
-            title: taskName,
-            task: taskContent,
-            date: taskDate,
-            status: "pending",
-            archived: true,
-            deleted: false,
-        }
+    async function unarchiveTask() {
 
         try {
 
-            const response = await fetch(`/api/post/addTask`, {
+            const response = await fetch(`/api/post/archived/unarchiveTask`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const ArchivedTasks = () => {
             if (data.status) {
                 router.push("/pages/tasks")
             } else {
-                alert("Error adding task")
+                alert("Error archiving task")
             }
 
         } catch (error) {
@@ -62,20 +62,16 @@ const ArchivedTasks = () => {
     }
 
     return (
-        <div className={form.AuthContainer}>
-            <label className={form.Label}>
-                <FaQuestionCircle/> Task Name
-            </label>
-            <input className={form.Input}
-                   type="text"
-                   onChange={(e) => setTaskName(e.target.value)}/>
-            <label className={form.Label}>
-                <FaTasks/> Task
-            </label>
-            <textarea className={form.Textarea}
-                      onChange={(e) => setTaskContent(e.target.value)}
-            />
-            <button className={form.Submit} onClick={addTaskHandler}><FaPlus/> Add Task</button>
+        <div className={styledTasks.tasksContainer}>
+            <div className={styledTasks.textContainer}>
+                <h1>Title: {taskTitle}</h1>
+                <h4>Task: {taskDescription}</h4>
+                <h4>Status: {taskStatus}</h4>
+                <h5>Created on: {taskDate}</h5>
+            </div>
+            <div className={styledTasks.buttonContainer}>
+                <button onClick={unarchiveTask}><FaArchive/></button>
+            </div>
         </div>
     )
 }

@@ -20,12 +20,12 @@ const Login = () => {
         let emailRegex = /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
 
         if (email === "" || password === "") {
-            console.log("Input Fields cannot be Empty")
+            alert("Input Fields cannot be Empty")
             return
         }
 
         if (!emailRegex.test(email)) {
-            console.log("Invalid Email address")
+            alert("Invalid Email address")
             return
         }
 
@@ -35,7 +35,8 @@ const Login = () => {
         }
 
         try {
-            const response = await fetch(`/api/post/login`, {
+
+            const response = await fetch(`/api/post/user/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -45,12 +46,16 @@ const Login = () => {
 
             const data = await response.json()
 
-            setEmail(data.isEmailAlreadyExists.email_id)
-            setPassword(data.isEmailAlreadyExists.password)
-            setPhone(data.isEmailAlreadyExists.phone_number)
-            setUsername(data.isEmailAlreadyExists.user_name)
+            if (data.status) {
+                setEmail(data.result.email_id)
+                setPassword(data.result.password)
+                setPhone(data.result.phone_number)
+                setUsername(data.result.user_name)
+                router.push("/")
+            } else {
+                alert("Incorrect email or password")
+            }
 
-            router.push("/")
         } catch (error) {
             console.log(error)
         }

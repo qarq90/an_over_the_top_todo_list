@@ -8,7 +8,7 @@ export const POST = async (request) => {
 
         await connect()
 
-        let currentUser = await Users.updateOne(
+        let result = await Users.updateOne(
             {
                 email_id: email_id,
             }, {
@@ -19,17 +19,17 @@ export const POST = async (request) => {
             }
         )
 
-        if (currentUser) {
+        if (result) {
             return NextResponse.json({
                 message: 'Account Updated Successfully',
                 status: true,
-                currentUser
+                result: result
             })
         } else {
             return NextResponse.json({
                 message: 'Failed to update Account',
                 status: false,
-                currentUser
+                result: result
             })
         }
 

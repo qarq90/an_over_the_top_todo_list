@@ -8,15 +8,16 @@ export const POST = async (request) => {
 
         await connect()
 
-        let result = await Task.create({
-            user: user,
-            title: title,
-            task: task,
-            date: date,
-            status: status,
-            archived: archived,
-            deleted: deleted,
-        })
+        let result = await Task.create(
+            {
+                user: user,
+                title: title,
+                task: task,
+                date: date,
+                status: status,
+                archived: archived,
+                deleted: deleted,
+            })
 
         if (result) {
             return NextResponse.json({

@@ -3,8 +3,8 @@
     display: flex;
     flex-direction: column;
     margin-top: 70px;
-    margin-left: 150px;
-    padding: 0 7.5rem;
+    margin-left: 10px;
+    padding: 0 20rem;
 }
 
 .Label {
@@ -52,24 +52,22 @@
 }
 
 .Submit {
-    justify-content: center;
-    display: flex;
-    align-items: center;
     background-color: var(--input-color);
     margin: 1rem 0;
     padding: 0.75rem;
     border: 1px transparent solid;
     border-radius: 10px;
-    color: var(--text-color);
+    color: var(--primary-color);
     font-size: 1rem;
     transition: 0.25s all linear;
 }
 
-.Submit svg{
-    margin-right: 0.5rem;
-}
-
 .Submit:hover {
     background-color: var(--secondary-color);
+    color: var(--text-color);
     cursor: pointer;
+}
+
+.Submit svg{
+    margin-right: 0.5rem;
 }

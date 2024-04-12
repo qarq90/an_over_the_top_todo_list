@@ -33,6 +33,7 @@
 }
 
 .navLink:hover {
+    color: var(--primary-color);
     background-color: var(--input-color);
 }
 

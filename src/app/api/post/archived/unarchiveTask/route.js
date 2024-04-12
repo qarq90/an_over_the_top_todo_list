@@ -4,24 +4,26 @@ import Task from "@/models/Task.js";
 
 export const POST = async (request) => {
     try {
-        const {user, archived} = await request.json()
+        const {_id} = await request.json()
 
         await connect()
 
-        let result = await Task.create({
-            user: user,
-            archived: archived,
-        })
+        let result = await Task.updateOne(
+            {
+                _id: _id,
+            }, {
+                archived: false,
+            })
 
         if (result) {
             return NextResponse.json({
-                message: 'Task successfully created',
+                message: 'Task Unarchived successfully.',
                 status: true,
                 result: result
             })
         } else {
             return NextResponse.json({
-                message: 'Failed to create a task',
+                message: 'Failed to unarchive the task',
                 status: false,
                 result: result
             })
