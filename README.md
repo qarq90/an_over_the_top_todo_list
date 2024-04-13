@@ -1,6 +1,10 @@
-## This todo list application boasts robust functionality, including authentication for secure user access, task deletion and archiving options, a user-friendly dashboard for efficient task management, and seamless user profile updating. With these features, users can organize tasks effectively, streamline workflows, and stay productive with ease.
-
-- User Authentication
+This todo list application boasts robust functionality, including authentication for secure user access, task deletion and archiving options, a user-friendly dashboard for efficient task management, and seamless user profile updating. With these features, users can organize tasks effectively, streamline workflows, and stay productive with ease.
+<br>
+<br>
+<br><br>
+<br>
+<br>
+# User Authentication
 <br>
 <br>
 <br>
@@ -8,7 +12,7 @@
 ![image](https://github.com/qarq90/an_over_the_top_todo_list/assets/124421417/e656a774-ca72-43e6-b5e1-4e9bcec53793)
 
 
-- Dashboard
+# Dashboard
 <br>
 <br>
 <br>
