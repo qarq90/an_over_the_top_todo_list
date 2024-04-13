@@ -13,6 +13,10 @@ export default function RootLayout({children}) {
     const isAuth = router === "/auth/login" || router === "/auth/signup";
     return (
         <html lang="en">
+        <head>
+            <title>an_over_the_top_todo_list</title>
+            <link rel="icon" href="favicon.ico" sizes="any"/>
+        </head>
         <body className={inter.className}>
         <div style={{display: "flex"}}>
             {

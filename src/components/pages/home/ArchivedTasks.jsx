@@ -26,7 +26,7 @@ export const ArchivedTasks = ({archivedLength, allTasksLength, activeTaskLength}
 
     return (
         <div className={styledHome.container}>
-            <h1>Archived Tasks : {archivedLength}/{activeTaskLength}</h1>
+            <h1>Archived Tasks : {archivedLength}/{allTasksLength}</h1>
             <Doughnut data={data}/>
         </div>
     )
