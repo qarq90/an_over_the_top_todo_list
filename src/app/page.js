@@ -272,7 +272,6 @@ export default function Home() {
                             <ArchivedTasks
                                 archivedLength={archivedLength}
                                 allTasksLength={allTasksLength}
-                                activeTaskLength={activeTaskLength}
                             />
                         </> : <EmptyResult isHome={true} content={"Forgot to archive some tasks?"}/>
                 }

@@ -3,7 +3,7 @@ import {ArcElement, Chart as ChartJS, Legend, Tooltip} from "chart.js"
 import {Doughnut} from "react-chartjs-2"
 
 ChartJS.register(ArcElement, Tooltip, Legend)
-export const ArchivedTasks = ({archivedLength, allTasksLength, activeTaskLength}) => {
+export const ArchivedTasks = ({archivedLength, allTasksLength}) => {
 
     const data = {
         labels: ['Total Tasks', 'Archived Tasks'],
