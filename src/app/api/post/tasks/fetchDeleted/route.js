@@ -4,12 +4,12 @@ import Task from "@/models/Task.js"
 
 export const POST = async (request) => {
     try {
-        const {user} = await request.json()
+        const {user_id} = await request.json()
 
         await connect()
 
         let result = await Task.find({
-            user: user,
+            user_id: user_id,
             deleted: true
         })
 

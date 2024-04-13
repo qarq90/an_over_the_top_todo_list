@@ -3,9 +3,9 @@
 import {useRouter} from "next/navigation.js"
 import form from "@/styles/pages/add/form.module.css"
 import {FaPlus, FaQuestionCircle, FaTasks} from "react-icons/fa"
-import {currentUserName} from "@/states/userState.js"
-import {useAtom} from "jotai"
-import {useRef, useState} from "react"
+import {currentUserID} from "@/states/userState.js"
+import {useAtom, useAtomValue} from "jotai"
+import {useEffect, useRef, useState} from "react"
 import {showCustomToast} from "@/lib/helper.js"
 import {Toast} from "primereact/toast"
 
@@ -13,7 +13,7 @@ const AddTask = () => {
 
     const router = useRouter()
 
-    const [currentlyLoggedInUser] = useAtom(currentUserName)
+    const [currentLoggedInUserID] = useAtom(currentUserID)
 
     const [taskName, setTaskName] = useState("")
     const [taskContent, setTaskContent] = useState("")
@@ -36,7 +36,7 @@ const AddTask = () => {
         const taskDate = new Date()
 
         const request = {
-            user: currentlyLoggedInUser,
+            user_id: currentLoggedInUserID,
             title: taskName,
             task: taskContent,
             date: taskDate,
@@ -67,6 +67,7 @@ const AddTask = () => {
                     2000
                 )
                 router.push("/pages/tasks")
+
             } else {
                 showCustomToast(
                     "error",

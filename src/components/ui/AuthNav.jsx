@@ -10,16 +10,18 @@ export default function AuthNav() {
     return (
         <div className={nav.nav}>
             <ul className={nav.navUl}>
-                {authLinks.map((link, index) => (
-                    <Link
-                        className={link.path === currentPage ? nav.currentLink : nav.navLink}
-                        key={index}
-                        href={link.path}
-                    >
-                        {link.icon}
-                        {link.text}
-                    </Link>
-                ))}
+                {
+                    authLinks.map((link, index) => (
+                        <Link
+                            className={link.path === currentPage ? nav.currentLink : nav.navLink}
+                            key={index}
+                            href={link.path}
+                        >
+                            {link.icon}
+                            {link.text}
+                        </Link>
+                    ))
+                }
             </ul>
         </div>
     )

@@ -25,29 +25,33 @@ export default function PagesNav() {
     return (
         <div className={nav.nav}>
             <ul className={nav.navUl}>
-                {pagesTopLinks.map((link, index) => (
-                    <Link
-                        className={link.path === currentPage ? nav.currentLink : nav.navLink}
-                        key={index}
-                        href={link.path}
-                    >
-                        {link.icon}
-                        {link.text}
-                    </Link>
-                ))}
+                {
+                    pagesTopLinks.map((link, index) => (
+                        <Link
+                            className={link.path === currentPage ? nav.currentLink : nav.navLink}
+                            key={index}
+                            href={link.path}
+                        >
+                            {link.icon}
+                            {link.text}
+                        </Link>
+                    ))
+                }
             </ul>
             <ul className={nav.navUl}>
-                {pagesBottomLinks.map((link, index) => (
-                    <Link
-                        className={link.path === currentPage ? nav.currentLink : nav.navLink}
-                        key={index}
-                        href={link.path}
-                        onClick={link.path === "/auth/login" ? logoutHandler : undefined}
-                    >
-                        {link.icon}
-                        {link.text}
-                    </Link>
-                ))}
+                {
+                    pagesBottomLinks.map((link, index) => (
+                        <Link
+                            className={link.path === currentPage ? nav.currentLink : nav.navLink}
+                            key={index}
+                            href={link.path}
+                            onClick={link.path === "/auth/login" ? logoutHandler : undefined}
+                        >
+                            {link.icon}
+                            {link.text}
+                        </Link>
+                    ))
+                }
             </ul>
         </div>
     )

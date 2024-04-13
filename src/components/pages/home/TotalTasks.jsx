@@ -5,6 +5,7 @@ import {Doughnut} from "react-chartjs-2"
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 export const TotalTasks = ({completedTasksLength, allTasksLength}) => {
+
     const data = {
         labels: ['Total Tasks', 'Completed Tasks'],
         datasets: [
@@ -23,6 +24,7 @@ export const TotalTasks = ({completedTasksLength, allTasksLength}) => {
             },
         ],
     }
+
     return (
         <div className={styledHome.container}>
             <Doughnut data={data}/>

@@ -2,7 +2,7 @@ import styledEmpty from "@/styles/ui/empty.module.css"
 
 export const EmptyResult = ({isHome, content}) => {
     return (
-        <div className={styledEmpty.emptyContainer} style={!isHome ? {scale: 1} : {scale: 0.5}} >
+        <div className={styledEmpty.emptyContainer} style={!isHome ? {scale: 1} : {scale: 0.5}}>
             <div style={!isHome ? {marginTop: "7.5rem"} : {}}></div>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
                 <path

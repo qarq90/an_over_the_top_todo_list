@@ -4,6 +4,7 @@ import {Doughnut} from "react-chartjs-2"
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 export const ArchivedTasks = ({archivedLength, allTasksLength, activeTaskLength}) => {
+
     const data = {
         labels: ['Total Tasks', 'Archived Tasks'],
         datasets: [
@@ -22,6 +23,7 @@ export const ArchivedTasks = ({archivedLength, allTasksLength, activeTaskLength}
             },
         ],
     }
+
     return (
         <div className={styledHome.container}>
             <h1>Archived Tasks : {archivedLength}/{activeTaskLength}</h1>

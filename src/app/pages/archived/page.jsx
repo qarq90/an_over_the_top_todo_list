@@ -4,21 +4,22 @@ import React, {useEffect, useState} from 'react'
 import globals from "@/styles/globals.module.css"
 import {FaArchive} from "react-icons/fa"
 import {useAtom} from "jotai"
-import {currentUserName} from "@/states/userState.js"
+import {currentUserID, currentUserName} from "@/states/userState.js"
 import {useRouter} from "next/navigation.js"
 import {SkeletonTasks} from "@/components/ui/Skeleton.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx"
 import ArchivedTasks from "@/components/pages/archived/ArchivedTasks.jsx"
+import {log} from "next/dist/server/typescript/utils.js";
 
 export default function ArchivedPage() {
 
     const router = useRouter()
 
-    const [currentlyLoggedInUser] = useAtom(currentUserName)
+    const [currentLoggedInUserID] = useAtom(currentUserID)
     const [isTasks, setIsTasks] = useState(true)
 
     useEffect(() => {
-        if (currentlyLoggedInUser === "") {
+        if (currentLoggedInUserID === "") {
             router.push("/auth/login")
         }
     }, [])
@@ -26,10 +27,10 @@ export default function ArchivedPage() {
     const [tasks, setTasks] = useState([])
 
     useEffect(() => {
-            const fetchCurrentTasks = async () => {
+            const fetchArchivedTasks = async () => {
 
                 const request = {
-                    user: currentlyLoggedInUser,
+                    user_id: currentLoggedInUserID,
                     archived: true,
                 }
 
@@ -42,16 +43,18 @@ export default function ArchivedPage() {
                 })
 
                 const data = await response.json()
+
                 if (data.status) {
                     setTasks(data.result)
                     setTimeout(() => setIsTasks(false), 2000)
                 } else {
                     alert("Failed to fetch the tasks")
                 }
-            }
-            fetchCurrentTasks()
 
-        }, [currentlyLoggedInUser]
+            }
+            fetchArchivedTasks().then(r => console.log(r))
+
+        }, [currentLoggedInUserID]
     )
 
     return (

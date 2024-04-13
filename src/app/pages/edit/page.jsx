@@ -43,13 +43,15 @@ export default function EditPage() {
         fetchTaskData()
     }, [])
 
-    const updateTaskTitle = async () => {
+    const updateTaskHandler = async () => {
+
         if (taskTitle === "" || taskDescription === "") {
             console.log("Input Fields are required")
             return
         }
 
         try {
+
             const response = await fetch(`/api/post/tasks/editTask`, {
                 method: "POST",
                 headers: {
@@ -59,11 +61,13 @@ export default function EditPage() {
             })
 
             const data = await response.json()
+
             if (data.status) {
                 router.push("/pages/tasks")
             } else {
                 alert("Error updating task")
             }
+
         } catch (error) {
             console.error("Error updating task:", error)
         }
@@ -92,7 +96,7 @@ export default function EditPage() {
                     value={taskDescription}
                     onChange={(e) => setTaskDescription(e.target.value)}
                 />
-                <button className={form.Submit} onClick={updateTaskTitle}>
+                <button className={form.Submit} onClick={updateTaskHandler}>
                     <FaPenAlt/> Update Task
                 </button>
             </div>

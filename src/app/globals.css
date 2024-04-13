@@ -12,7 +12,7 @@
 }
 
 *::selection {
-    background-color: transparent;
+    background-color: var(--input-color);
 }
 
 body {

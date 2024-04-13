@@ -76,7 +76,9 @@ const SignUp = () => {
             const data = await response.json()
 
             if (data.status) {
-                router.push("/")
+
+                router.push("/auth/login")
+
             } else {
                 showCustomToast(
                     "error",

@@ -2,12 +2,19 @@
 
 import {useRouter} from "next/navigation.js"
 import {useAtom} from 'jotai'
-import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js"
+import {
+    currentUserEmail,
+    currentUserID,
+    currentUserName,
+    currentUserPassword,
+    currentUserPhoneNumber
+} from "@/states/userState.js"
 import {FaKey, FaMailBulk} from "react-icons/fa"
 import auth from "@/styles/auth/auth.module.css"
 import {showCustomToast} from "@/lib/helper.js"
 import {Toast} from "primereact/toast"
 import {useRef} from "react"
+import {useAtomValue} from "jotai";
 
 const Login = () => {
 
@@ -17,7 +24,9 @@ const Login = () => {
     const [password, setPassword] = useAtom(currentUserPassword)
     const [phone, setPhone] = useAtom(currentUserPhoneNumber)
     const [username, setUsername] = useAtom(currentUserName)
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
     const toastRef = useRef()
+    let id = useAtomValue(currentUserID)
 
     const loginHandler = async () => {
 
@@ -65,11 +74,15 @@ const Login = () => {
             const data = await response.json()
 
             if (data.status) {
+
                 setEmail(data.result.email_id)
                 setPassword(data.result.password)
                 setPhone(data.result.phone_number)
                 setUsername(data.result.user_name)
+                setCurrentLoggedInUserID(data.result._id)
+
                 router.push("/")
+
             } else {
                 showCustomToast(
                     "error",

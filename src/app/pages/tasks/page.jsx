@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from 'react'
 import globals from '@/styles/globals.module.css'
-import {currentUserName} from "@/states/userState.js"
+import {currentUserID} from "@/states/userState.js"
 import {useAtom} from "jotai"
 import {TaskCard} from "@/components/pages/tasks/TaskCard.jsx"
 import {useRouter} from "next/navigation.js"
@@ -14,11 +14,11 @@ export default function TasksPage() {
 
     const router = useRouter()
 
-    const [currentlyLoggedInUser] = useAtom(currentUserName)
+    const [currentLoggedInUserID] = useAtom(currentUserID)
     const [isTasks, setIsTasks] = useState(true)
 
     useEffect(() => {
-        if (currentlyLoggedInUser === "") {
+        if (currentLoggedInUserID === "") {
             router.push("/auth/login")
         }
     }, [])
@@ -29,7 +29,7 @@ export default function TasksPage() {
             const fetchCurrentTasks = async () => {
 
                 const request = {
-                    user: currentlyLoggedInUser,
+                    user_id: currentLoggedInUserID,
                     status: "pending",
                 }
 
@@ -42,16 +42,18 @@ export default function TasksPage() {
                 })
 
                 const data = await response.json()
+
                 if (data.status) {
                     setTasks(data.result)
                     setTimeout(() => setIsTasks(false), 2000)
                 } else {
                     alert("Failed to fetch tasks")
                 }
+
             }
             fetchCurrentTasks()
 
-        }, [currentlyLoggedInUser]
+        }, [currentLoggedInUserID]
     )
 
     return (

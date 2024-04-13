@@ -5,19 +5,21 @@ import globals from "@/styles/globals.module.css"
 import AddTask from "@/components/pages/add/AddTask.jsx"
 import {FaPlus} from "react-icons/fa"
 import {useAtom} from "jotai"
-import {currentUserName} from "@/states/userState.js"
+import {currentUserID, currentUserName} from "@/states/userState.js"
 import {useRouter} from "next/navigation.js"
 
 export default function Add() {
 
     const router = useRouter()
 
-    const [currentlyLoggedInUser] = useAtom(currentUserName)
+    const [currentLoggedInUserID] = useAtom(currentUserID)
 
     useEffect(() => {
-        if (currentlyLoggedInUser === "") {
+
+        if (currentLoggedInUserID === "") {
             router.push("/auth/login")
         }
+
     }, [])
 
     return (

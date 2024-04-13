@@ -1,19 +1,14 @@
 import {NextResponse} from "next/server"
 import connect from "@/lib/connection.js"
-import Task from "@/models/Task.js"
+import User from "@/models/User.js";
 
 export const POST = async (request) => {
     try {
-        const {user_id, status} = await request.json()
+        const {user_id} = await request.json()
 
         await connect()
 
-        let result = await Task.find({
-            user_id: user_id,
-            status: status,
-            archived: false,
-            deleted: false
-        })
+        let result = await User.findOne({_id: user_id})
 
         if (result) {
             return NextResponse.json({

@@ -4,13 +4,13 @@ import Task from "@/models/Task.js"
 
 export const POST = async (request) => {
     try {
-        const {user, title, task, date, status, archived, deleted} = await request.json()
+        const {user_id, title, task, date, status, archived, deleted} = await request.json()
 
         await connect()
 
         let result = await Task.create(
             {
-                user: user,
+                user_id: user_id,
                 title: title,
                 task: task,
                 date: date,

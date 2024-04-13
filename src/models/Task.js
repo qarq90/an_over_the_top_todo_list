@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const {Schema} = mongoose
 
 const reviewSchema = new Schema({
-    user: String,
+    user_id: String,
     title: String,
     task: String,
     date: Date,

@@ -2,43 +2,95 @@
 
 import globals from '@/styles/globals.module.css'
 import {useRouter} from "next/navigation.js"
-import {currentUserName} from "@/states/userState.js"
+import {currentUserID, currentUserName} from "@/states/userState.js"
 import {useAtom} from "jotai"
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import styledHome from "@/styles/home/home.module.css"
 import {TotalTasks} from "@/components/pages/home/TotalTasks.jsx"
 import {ArchivedTasks} from "@/components/pages/home/ArchivedTasks.jsx"
 import {ActiveTasks} from "@/components/pages/home/ActiveTasks.jsx"
 import {DeletedTasks} from "@/components/pages/home/DeletedTasks.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx";
+import {showCustomToast} from "@/lib/helper.js";
+import {Toast} from "primereact/toast";
 
 export default function Home() {
 
     const router = useRouter()
 
-    const [currentlyLoggedInUser] = useAtom(currentUserName)
+    const toastRef = useRef()
+
+    const [currentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserName] = useAtom(currentUserName)
+
     const [allTasks, setAllTasks] = useState([])
     const [allTasksLength, setAllTasksLength] = useState(0)
+
     const [archivedTasks, setAllArchivedTasks] = useState([])
     const [archivedLength, setArchivedLength] = useState(0)
+
     const [activeTask, setActiveTask] = useState([])
     const [activeTaskLength, setActiveTaskLength] = useState(0)
+
     const [deletedTasks, setDeletedTasks] = useState([])
     const [deletedTasksLength, setDeletedTasksLength] = useState(0)
+
     const [completedTasks, setCompletedTasks] = useState([])
     const [completedTasksLength, setCompletedTasksLength] = useState(0)
 
     useEffect(() => {
-        if (currentlyLoggedInUser === "") {
+
+        if (currentLoggedInUserID === "") {
             router.push("/auth/login")
+
+        } else {
+            const fetchUserID = async () => {
+
+                const request = {
+                    user_id: currentLoggedInUserID,
+                }
+
+                const response = await fetch(`/api/post/user/fetchID`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(request),
+                })
+
+                const data = await response.json()
+
+                if (data.status) {
+                    showCustomToast(
+                        "success",
+                        "Success",
+                        "Please enter a valid email address.",
+                        "Authentication Successful",
+                        toastRef,
+                        2000
+                    )
+
+                } else {
+                    showCustomToast(
+                        "success",
+                        "Success",
+                        "Please enter a valid email address.",
+                        "Authentication Successful",
+                        toastRef,
+                        2000
+                    )
+                }
+            }
+
+            fetchUserID()
         }
     }, [])
 
     useEffect(() => {
-            const fetchCurrentTasks = async () => {
+            const fetchCompletedTasks = async () => {
 
                 const request = {
-                    user: currentlyLoggedInUser,
+                    user_id: currentLoggedInUserID,
                 }
 
                 const response = await fetch(`/api/post/tasks/fetchCompleted`, {
@@ -50,22 +102,24 @@ export default function Home() {
                 })
 
                 const data = await response.json()
+
                 if (data.status) {
                     setCompletedTasks(data.result)
                 } else {
                     alert("Failed to fetch the tasks")
                 }
             }
-            fetchCurrentTasks()
 
-        }, [currentlyLoggedInUser]
+            fetchCompletedTasks()
+
+        }, [currentLoggedInUserID]
     )
 
     useEffect(() => {
-            const fetchCurrentTasks = async () => {
+            const fetchHistory = async () => {
 
                 const request = {
-                    user: currentlyLoggedInUser,
+                    user_id: currentLoggedInUserID,
                 }
 
                 const response = await fetch(`/api/post/history`, {
@@ -77,22 +131,24 @@ export default function Home() {
                 })
 
                 const data = await response.json()
+
                 if (data.status) {
                     setAllTasks(data.result)
                 } else {
                     alert("Failed to fetch the tasks")
                 }
             }
-            fetchCurrentTasks()
 
-        }, [currentlyLoggedInUser]
+            fetchHistory()
+
+        }, [currentLoggedInUserID]
     )
 
     useEffect(() => {
-            const fetchCurrentTasks = async () => {
+            const fetchArchived = async () => {
 
                 const request = {
-                    user: currentlyLoggedInUser,
+                    user_id: currentLoggedInUserID,
                     archived: true,
                 }
 
@@ -105,22 +161,24 @@ export default function Home() {
                 })
 
                 const data = await response.json()
+
                 if (data.status) {
                     setAllArchivedTasks(data.result)
                 } else {
                     alert("Failed to fetch the tasks")
                 }
             }
-            fetchCurrentTasks()
 
-        }, [currentlyLoggedInUser]
+            fetchArchived()
+
+        }, [currentLoggedInUserID]
     )
 
     useEffect(() => {
-            const fetchCurrentTasks = async () => {
+            const fetchActiveTasks = async () => {
 
                 const request = {
-                    user: currentlyLoggedInUser,
+                    user_id: currentLoggedInUserID,
                     status: "pending",
                 }
 
@@ -133,22 +191,24 @@ export default function Home() {
                 })
 
                 const data = await response.json()
+
                 if (data.status) {
                     setActiveTask(data.result)
                 } else {
                     alert("Failed to fetch tasks")
                 }
             }
-            fetchCurrentTasks()
 
-        }, [currentlyLoggedInUser]
+            fetchActiveTasks()
+
+        }, [currentLoggedInUserID]
     )
 
     useEffect(() => {
-            const fetchCurrentTasks = async () => {
+            const fetchDeletedTasks = async () => {
 
                 const request = {
-                    user: currentlyLoggedInUser,
+                    user_id: currentLoggedInUserID,
                 }
 
                 const response = await fetch(`/api/post/tasks/fetchDeleted`, {
@@ -160,20 +220,21 @@ export default function Home() {
                 })
 
                 const data = await response.json()
+
                 if (data.status) {
                     setDeletedTasks(data.result)
                 } else {
                     alert("Failed to fetch tasks")
                 }
             }
-            fetchCurrentTasks()
 
-        }, [currentlyLoggedInUser]
+            fetchDeletedTasks()
+
+        }, [currentLoggedInUserID]
     )
 
     useEffect(() => {
         setCompletedTasksLength(completedTasks.length)
-        console.log(completedTasks)
     }, [completedTasks])
 
     useEffect(() => {
@@ -193,8 +254,8 @@ export default function Home() {
     }, [allTasks])
 
     return (
-        <div className={globals.Container}>
-            <h1 className={globals.PageHeader}>Welcome Back, {currentlyLoggedInUser}</h1>
+        <div className={globals.Container} style={{overflowY: "hidden"}}>
+            <h1 className={globals.PageHeader}>Welcome Back, {currentLoggedInUserName}</h1>
             <div className={styledHome.dashboardContainer}>
                 {
                     completedTasks.length > 0 ?
@@ -234,6 +295,7 @@ export default function Home() {
                         </> : <EmptyResult isHome={true} content={"You haven't deleted any tasks..."}/>
                 }
             </div>
+            <Toast ref={toastRef}/>
         </div>
     )
 }

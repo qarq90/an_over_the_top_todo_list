@@ -1,7 +1,7 @@
 "use client"
 
 import {useRouter} from "next/navigation.js"
-import {FaArchive} from "react-icons/fa"
+import {FaBoxOpen} from "react-icons/fa"
 import styledArchived from "@/styles/pages/archived/archived.module.css"
 
 const ArchivedTasks = ({tasks}) => {
@@ -63,7 +63,7 @@ const ArchivedTasks = ({tasks}) => {
                 <h5>Created on: {taskDate}</h5>
             </div>
             <div className={styledArchived.buttonContainer}>
-                <button onClick={unarchiveTask}><FaArchive/></button>
+                <button onClick={unarchiveTask}><FaBoxOpen/></button>
             </div>
         </div>
     )

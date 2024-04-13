@@ -1,18 +1,75 @@
 import styledProfile from "@/styles/pages/profile/profile.module.css"
 import {FaKey, FaMailBulk, FaPhone, FaUser} from "react-icons/fa"
 import {useAtom} from "jotai"
-import {currentUserEmail, currentUserName, currentUserPassword, currentUserPhoneNumber} from "@/states/userState.js"
+import {
+    currentUserEmail,
+    currentUserID,
+    currentUserName,
+    currentUserPassword,
+    currentUserPhoneNumber
+} from "@/states/userState.js"
 import {Toast} from "primereact/toast"
 import {emailRegex, phoneRegex, showCustomToast} from "@/lib/helper.js"
-import {useRef} from "react"
+import {useEffect, useRef} from "react"
 
 const Profile = () => {
+
+    const [currentLoggedInUserID] = useAtom(currentUserID)
 
     const [email, setEmail] = useAtom(currentUserEmail)
     const [password, setPassword] = useAtom(currentUserPassword)
     const [phone, setPhone] = useAtom(currentUserPhoneNumber)
     const [username, setUsername] = useAtom(currentUserName)
     const toastRef = useRef()
+
+    useEffect(() => {
+        const fetchCurrentTasks = async () => {
+
+            const request = {
+                user_id: currentLoggedInUserID,
+            }
+
+            const response = await fetch(`/api/post/user/fetchID`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(request),
+            })
+
+            const data = await response.json()
+
+            if (data.status) {
+
+                setEmail(data.result.email_id)
+                setPassword(data.result.password)
+                setEmail(data.result.email_id)
+                setUsername(data.result.user_name)
+
+                showCustomToast(
+                    "success",
+                    "Success",
+                    "Please enter a valid email address.",
+                    "Profile Found",
+                    toastRef,
+                    2000
+                )
+
+            } else {
+                showCustomToast(
+                    "success",
+                    "Success",
+                    "Please enter a valid email address.",
+                    "Authentication Successful",
+                    toastRef,
+                    2000
+                )
+            }
+        }
+
+        fetchCurrentTasks()
+
+    }, [])
 
     const EditHandler = async () => {
 
