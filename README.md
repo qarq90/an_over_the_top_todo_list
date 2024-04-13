@@ -19,8 +19,7 @@ Explore our Next.js and MongoDB-powered todo list app featuring authentication, 
 ![image](https://github.com/qarq90/an_over_the_top_todo_list/assets/124421417/e656a774-ca72-43e6-b5e1-4e9bcec53793)
 
 <br>
-<br>
-<br>
+
 
 ## Dashboard
 <br>
