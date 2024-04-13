@@ -1,6 +1,6 @@
 # an_over_the_top_todo_list
 
-## Explore our Next.js and MongoDB-powered todo list app featuring authentication, task management functionalities like deletion and archiving, a dynamic dashboard, and seamless user profile updates. Boost productivity effortlessly
+Explore our Next.js and MongoDB-powered todo list app featuring authentication, task management functionalities like deletion and archiving, a dynamic dashboard, and seamless user profile updates. Boost productivity effortlessly
 
 ## Features
 
