@@ -11,8 +11,6 @@ Explore our Next.js and MongoDB-powered todo list app featuring authentication, 
 - Task History
 
 <br>
-<br>
-<br>
 
 ## User Authentication
 <br>
