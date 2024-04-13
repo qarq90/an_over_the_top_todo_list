@@ -1,4 +1,13 @@
-This todo list application boasts robust functionality, including authentication for secure user access, task deletion and archiving options, a user-friendly dashboard for efficient task management, and seamless user profile updating. With these features, users can organize tasks effectively, streamline workflows, and stay productive with ease.
+<h1>Explore our Next.js and MongoDB-powered todo list app featuring authentication, task management functionalities like deletion and archiving, a dynamic dashboard, and seamless user profile updates. Boost productivity effortlessly.</h1>
+
+# Features
+
+- User Authentication
+- Profile Updation
+- Task Archiving
+- Task Dashboard
+- Task History
+
 <br>
 <br>
 <br>
@@ -12,6 +21,7 @@ This todo list application boasts robust functionality, including authentication
 <br>
 <br>
 <br>
+
 # Dashboard
 <br>
 <br>
