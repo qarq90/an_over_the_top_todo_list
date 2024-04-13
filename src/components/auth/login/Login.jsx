@@ -111,7 +111,7 @@ const Login = () => {
                 <FaKey/> Password
             </label>
             <input className={auth.Input}
-                   type="text"
+                   type="password"
                    onChange={(e) => setPassword(e.target.value)}/>
             <button className={auth.Submit} onClick={loginHandler}>Login</button>
             <Toast ref={toastRef} position="top-right"/>
