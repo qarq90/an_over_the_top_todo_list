@@ -4,11 +4,10 @@ Explore our Next.js and MongoDB-powered todo list app featuring authentication, 
 
 ## Features
 
-- User Authentication
-- Profile Updation
-- Task Archiving
-- Task Dashboard
-- Task History
+- Seamlessly combines the power of Next.js and MongoDB for efficient data management and dynamic frontend rendering.
+- Secure user authentication ensures data privacy and access control for personalized task management.
+- Enables users to delete completed tasks and archive important ones for future reference, optimizing task organization.
+- Offers an intuitive dashboard for users to manage tasks effectively, providing a clear overview of pending, completed, and archived tasks.
 
 <br>
 
