@@ -1,3 +1,34 @@
+# an_over_the_top_todo_list
+
+Explore our Next.js and MongoDB-powered todo list app featuring authentication, task management functionalities like deletion and archiving, a dynamic dashboard, and seamless user profile updates. Boost productivity effortlessly
+
+## Features
+
+- Seamlessly combines the power of Next.js and MongoDB for efficient data management and dynamic frontend rendering.
+- Secure user authentication ensures data privacy and access control for personalized task management.
+- Enables users to delete completed tasks and archive important ones for future reference, optimizing task organization.
+- Offers an intuitive dashboard for users to manage tasks effectively, providing a clear overview of pending, completed, and archived tasks.
+
+<br>
+
+## User Authentication
+<br>
+<br>
+
+![image](https://github.com/qarq90/an_over_the_top_todo_list/assets/124421417/e656a774-ca72-43e6-b5e1-4e9bcec53793)
+
+<br>
+
+
+## Dashboard
+<br>
+<br>
+
+![image](https://github.com/qarq90/an_over_the_top_todo_list/assets/124421417/d2cee9e7-9efc-4fee-b573-e0acea1c5cca)
+<br>
+<br>
+<br>
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
