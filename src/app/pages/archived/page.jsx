@@ -10,6 +10,7 @@ import {SkeletonTasks} from "@/components/ui/Skeleton.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx"
 import ArchivedTasks from "@/components/pages/archived/ArchivedTasks.jsx"
 import {log} from "next/dist/server/typescript/utils.js";
+import PageTransition from "@/app/layouts/PageTransition.jsx";
 
 export default function ArchivedPage() {
 
@@ -58,7 +59,7 @@ export default function ArchivedPage() {
     )
 
     return (
-        <>
+        <PageTransition>
             <div className={globals.Container}>
                 <h1 className={globals.PageHeader}><FaArchive/> Archived</h1>
                 {isTasks ? <SkeletonTasks/> : (
@@ -71,6 +72,6 @@ export default function ArchivedPage() {
                     )
                 )}
             </div>
-        </>
+        </PageTransition>
     )
 }

@@ -9,6 +9,7 @@ import {useRouter} from "next/navigation.js"
 import {FaListAlt} from "react-icons/fa"
 import {SkeletonTasks} from "@/components/ui/Skeleton.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx"
+import PageTransition from "@/app/layouts/PageTransition.jsx";
 
 export default function TasksPage() {
 
@@ -57,7 +58,7 @@ export default function TasksPage() {
     )
 
     return (
-        <>
+        <PageTransition>
             <div className={globals.Container}>
                 <h1 className={globals.PageHeader}><FaListAlt/> Tasks</h1>
                 {isTasks ? <SkeletonTasks/> : (
@@ -70,6 +71,6 @@ export default function TasksPage() {
                     )
                 )}
             </div>
-        </>
+        </PageTransition>
     )
 }

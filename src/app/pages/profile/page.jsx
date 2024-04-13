@@ -7,6 +7,7 @@ import {FaUser} from "react-icons/fa"
 import {useAtom} from "jotai"
 import {currentUserID} from "@/states/userState.js"
 import {useRouter} from "next/navigation.js"
+import PageTransition from "@/app/layouts/PageTransition.jsx";
 
 export default function ProfilePage() {
 
@@ -23,11 +24,11 @@ export default function ProfilePage() {
     }, [])
 
     return (
-        <>
+        <PageTransition>
             <div className={globals.Container}>
                 <h1 className={globals.PageHeader}><FaUser/> Profile</h1>
                 <Profile/>
             </div>
-        </>
+        </PageTransition>
     )
 }

@@ -13,6 +13,7 @@ import {DeletedTasks} from "@/components/pages/home/DeletedTasks.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx";
 import {showCustomToast} from "@/lib/helper.js";
 import {Toast} from "primereact/toast";
+import PageTransition from "@/app/layouts/PageTransition.jsx";
 
 export default function Home() {
 
@@ -254,47 +255,49 @@ export default function Home() {
     }, [allTasks])
 
     return (
-        <div className={globals.Container} style={{overflowY: "hidden"}}>
-            <h1 className={globals.PageHeader}>Welcome Back, {currentLoggedInUserName}</h1>
-            <div className={styledHome.dashboardContainer}>
-                {
-                    completedTasks.length > 0 ?
-                        <>
-                            <TotalTasks
-                                completedTasksLength={completedTasksLength}
-                                allTasksLength={allTasksLength}
-                            />
-                        </> : <EmptyResult isHome={true} content={"Create some goals to accomplish..."}/>
-                }
-                {
-                    archivedTasks.length > 0 ?
-                        <>
-                            <ArchivedTasks
-                                archivedLength={archivedLength}
-                                allTasksLength={allTasksLength}
-                            />
-                        </> : <EmptyResult isHome={true} content={"Forgot to archive some tasks?"}/>
-                }
-                {
-                    activeTask.length > 0 ?
-                        <>
-                            <ActiveTasks
-                                allTasksLength={allTasksLength}
-                                activeTaskLength={activeTaskLength}
-                            />
-                        </> : <EmptyResult isHome={true} content={"You forgot to create tasks."}/>
-                }
-                {
-                    deletedTasks.length > 0 ?
-                        <>
-                            <DeletedTasks
-                                allTasksLength={allTasksLength}
-                                deletedTasksLength={deletedTasksLength}
-                            />
-                        </> : <EmptyResult isHome={true} content={"You haven't deleted any tasks..."}/>
-                }
+        <PageTransition>
+            <div className={globals.Container} style={{overflowY: "hidden"}}>
+                <h1 className={globals.PageHeader}>Welcome Back, {currentLoggedInUserName}</h1>
+                <div className={styledHome.dashboardContainer}>
+                    {
+                        completedTasks.length > 0 ?
+                            <>
+                                <TotalTasks
+                                    completedTasksLength={completedTasksLength}
+                                    allTasksLength={allTasksLength}
+                                />
+                            </> : <EmptyResult isHome={true} content={"Create some goals to accomplish..."}/>
+                    }
+                    {
+                        archivedTasks.length > 0 ?
+                            <>
+                                <ArchivedTasks
+                                    archivedLength={archivedLength}
+                                    allTasksLength={allTasksLength}
+                                />
+                            </> : <EmptyResult isHome={true} content={"Forgot to archive some tasks?"}/>
+                    }
+                    {
+                        activeTask.length > 0 ?
+                            <>
+                                <ActiveTasks
+                                    allTasksLength={allTasksLength}
+                                    activeTaskLength={activeTaskLength}
+                                />
+                            </> : <EmptyResult isHome={true} content={"You forgot to create tasks."}/>
+                    }
+                    {
+                        deletedTasks.length > 0 ?
+                            <>
+                                <DeletedTasks
+                                    allTasksLength={allTasksLength}
+                                    deletedTasksLength={deletedTasksLength}
+                                />
+                            </> : <EmptyResult isHome={true} content={"You haven't deleted any tasks..."}/>
+                    }
+                </div>
+                <Toast ref={toastRef}/>
             </div>
-            <Toast ref={toastRef}/>
-        </div>
+        </PageTransition>
     )
 }

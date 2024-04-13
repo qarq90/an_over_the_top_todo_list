@@ -28,6 +28,27 @@ h1, h2, h3, h4, h5, h6, p {
     color: var(--text-color);
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--input-color);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--secondary-color);
+}
+
+* {
+    scrollbar-width: thin;
+}
+
+* {
+    scrollbar-color: var(--input-color) var(--secondary-color);
+}
+
+
 .p-toast-message-icon {
     color: var(--text-color);
 }

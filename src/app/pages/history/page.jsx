@@ -10,6 +10,7 @@ import HistoryCard from "@/components/pages/history/TasksHistory.jsx"
 import styledTasks from "@/styles/pages/tasks/tasks.module.css"
 import {SkeletonTasks} from "@/components/ui/Skeleton.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx"
+import PageTransition from "@/app/layouts/PageTransition.jsx";
 
 export default function HistoryPage() {
 
@@ -55,7 +56,7 @@ export default function HistoryPage() {
     }, [])
 
     return (
-        <>
+        <PageTransition>
             <div className={globals.Container}>
                 <h1 className={globals.PageHeader}><FaHistory/> History</h1>
                 <div className={styledTasks.infoContainer}>
@@ -86,6 +87,6 @@ export default function HistoryPage() {
                     )
                 )}
             </div>
-        </>
+        </PageTransition>
     )
 }

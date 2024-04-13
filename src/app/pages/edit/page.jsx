@@ -3,8 +3,9 @@
 import {useRouter} from "next/navigation.js"
 import {useEffect, useState} from "react"
 import globals from "@/styles/globals.module.css"
-import {FaPenAlt, FaPen, FaQuestionCircle, FaTasks} from "react-icons/fa"
+import {FaPen, FaPenAlt, FaQuestionCircle, FaTasks} from "react-icons/fa"
 import form from "@/styles/pages/add/form.module.css"
+import PageTransition from "@/app/layouts/PageTransition.jsx";
 
 export default function EditPage() {
     const router = useRouter()
@@ -74,32 +75,34 @@ export default function EditPage() {
     }
 
     return (
-        <div className={globals.Container}>
-            <h1 className={globals.PageHeader}>
-                <FaPen/> Edit
-            </h1>
-            <div className={form.AuthContainer}>
-                <label className={form.Label}>
-                    <FaQuestionCircle/> Task Name
-                </label>
-                <input
-                    className={form.Input}
-                    type="text"
-                    value={taskTitle}
-                    onChange={(e) => setTaskTitle(e.target.value)}
-                />
-                <label className={form.Label}>
-                    <FaTasks/> Task
-                </label>
-                <textarea
-                    className={form.Textarea}
-                    value={taskDescription}
-                    onChange={(e) => setTaskDescription(e.target.value)}
-                />
-                <button className={form.Submit} onClick={updateTaskHandler}>
-                    <FaPenAlt/> Update Task
-                </button>
+        <PageTransition>
+            <div className={globals.Container}>
+                <h1 className={globals.PageHeader}>
+                    <FaPen/> Edit
+                </h1>
+                <div className={form.AuthContainer}>
+                    <label className={form.Label}>
+                        <FaQuestionCircle/> Task Name
+                    </label>
+                    <input
+                        className={form.Input}
+                        type="text"
+                        value={taskTitle}
+                        onChange={(e) => setTaskTitle(e.target.value)}
+                    />
+                    <label className={form.Label}>
+                        <FaTasks/> Task
+                    </label>
+                    <textarea
+                        className={form.Textarea}
+                        value={taskDescription}
+                        onChange={(e) => setTaskDescription(e.target.value)}
+                    />
+                    <button className={form.Submit} onClick={updateTaskHandler}>
+                        <FaPenAlt/> Update Task
+                    </button>
+                </div>
             </div>
-        </div>
+        </PageTransition>
     )
 }
