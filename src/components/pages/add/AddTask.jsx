@@ -17,6 +17,7 @@ const AddTask = () => {
 
     const [taskName, setTaskName] = useState("")
     const [taskContent, setTaskContent] = useState("")
+
     const toastRef = useRef()
 
     async function addTaskHandler() {

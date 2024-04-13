@@ -1,17 +1,23 @@
 "use client"
 
 import {useRouter} from "next/navigation.js"
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import globals from "@/styles/globals.module.css"
 import {FaPen, FaPenAlt, FaQuestionCircle, FaTasks} from "react-icons/fa"
 import form from "@/styles/pages/add/form.module.css"
 import PageTransition from "@/app/layouts/PageTransition.jsx";
+import {Toast} from "primereact/toast";
+import {showCustomToast} from "@/lib/helper.js";
 
 export default function EditPage() {
+
     const router = useRouter()
+
     const [taskId, setTaskId] = useState("")
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
+
+    const toastRef = useRef()
 
     useEffect(() => {
         const fetchTaskData = async () => {
@@ -34,7 +40,14 @@ export default function EditPage() {
                     setTaskTitle(data.result.title)
                     setTaskDescription(data.result.task)
                 } else {
-                    alert("Failed to fetch task data")
+                    showCustomToast(
+                        "error",
+                        "Error Fetching Task",
+                        "Something went wrong, could not Fetch tasks.",
+                        "Something went wrong, could not Fetch tasks.",
+                        toastRef,
+                        2000
+                    )
                 }
             } catch (error) {
                 console.error("Error fetching task data:", error)
@@ -47,7 +60,14 @@ export default function EditPage() {
     const updateTaskHandler = async () => {
 
         if (taskTitle === "" || taskDescription === "") {
-            console.log("Input Fields are required")
+            showCustomToast(
+                "error",
+                "Empty Fields",
+                "Please fill in all required fields.",
+                "Please fill in all required fields.",
+                toastRef,
+                2000
+            )
             return
         }
 
@@ -66,7 +86,14 @@ export default function EditPage() {
             if (data.status) {
                 router.push("/pages/tasks")
             } else {
-                alert("Error updating task")
+                showCustomToast(
+                    "error",
+                    "Error Updating Task",
+                    "Something went wrong, could not Update tasks.",
+                    "Something went wrong, could not Update tasks.",
+                    toastRef,
+                    2000
+                )
             }
 
         } catch (error) {
@@ -102,6 +129,7 @@ export default function EditPage() {
                         <FaPenAlt/> Update Task
                     </button>
                 </div>
+                <Toast ref={toastRef} position="top-right"/>
             </div>
         </PageTransition>
     )
