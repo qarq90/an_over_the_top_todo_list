@@ -1,6 +1,8 @@
-<h1>Explore our Next.js and MongoDB-powered todo list app featuring authentication, task management functionalities like deletion and archiving, a dynamic dashboard, and seamless user profile updates. Boost productivity effortlessly.</h1>
+# an_over_the_top_todo_list
 
-# Features
+## Explore our Next.js and MongoDB-powered todo list app featuring authentication, task management functionalities like deletion and archiving, a dynamic dashboard, and seamless user profile updates. Boost productivity effortlessly
+
+## Features
 
 - User Authentication
 - Profile Updation
@@ -12,7 +14,7 @@
 <br>
 <br>
 
-# User Authentication
+## User Authentication
 <br>
 <br>
 
@@ -22,7 +24,7 @@
 <br>
 <br>
 
-# Dashboard
+## Dashboard
 <br>
 <br>
 
