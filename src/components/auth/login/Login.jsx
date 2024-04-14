@@ -18,8 +18,7 @@ import Cookies from "js-cookie";
 
 const Login = () => {
 
-    let storageUserID
-    storageUserID = window.localStorage.getItem("storageUserID") || ""
+    const storageUserID = Cookies.get("storageUserID") || "";
 
     const router = useRouter()
 

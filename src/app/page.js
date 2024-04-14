@@ -14,6 +14,7 @@ import {EmptyResult} from "@/components/ui/EmptyResult.jsx";
 import {showCustomToast} from "@/lib/helper.js";
 import {Toast} from "primereact/toast";
 import PageTransition from "@/app/layouts/PageTransition.jsx";
+import Cookies from "js-cookie";
 
 export default function Home() {
 
@@ -41,8 +42,7 @@ export default function Home() {
 
     useEffect(() => {
 
-        let storageUserID
-        storageUserID = window.localStorage.getItem("storageUserID") || ""
+        const storageUserID = Cookies.get("storageUserID") || "";
 
         if (storageUserID === "") {
 
