@@ -1,11 +1,30 @@
 "use client"
 
-import React from 'react'
+import React, {useEffect} from 'react'
 import globals from "@/styles/globals.module.css"
 import SignUp from "@/components/auth/signup/Signup.jsx"
 import {FaUserPlus} from "react-icons/fa"
+import {useAtom} from "jotai";
+import {currentUserID} from "@/states/userState.js";
+import {router} from "next/navigation.js";
 
 export default function ProfilePage() {
+
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
+
+    useEffect(() => {
+
+        let storageUserID
+        storageUserID = localStorage.getItem("storageUserID") || ""
+
+        if (storageUserID === "") {
+            router.push("/auth/login")
+        } else {
+            setCurrentLoggedInUserID(storageUserID)
+        }
+
+    }, []);
+
     return (
         <>
             <div className={globals.Container}>

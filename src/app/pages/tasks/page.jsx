@@ -15,14 +15,21 @@ export default function TasksPage() {
 
     const router = useRouter()
 
-    const [currentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
     const [isTasks, setIsTasks] = useState(true)
 
     useEffect(() => {
-        if (currentLoggedInUserID === "") {
+
+        let storageUserID
+        storageUserID = localStorage.getItem("storageUserID") || ""
+
+        if (storageUserID === "") {
             router.push("/auth/login")
+        } else {
+            setCurrentLoggedInUserID(storageUserID)
         }
-    }, [])
+
+    }, []);
 
     const [tasks, setTasks] = useState([])
 

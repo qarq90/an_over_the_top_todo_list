@@ -21,7 +21,7 @@ export default function Home() {
 
     const toastRef = useRef()
 
-    const [currentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
     const [currentLoggedInUserName] = useAtom(currentUserName)
 
     const [allTasks, setAllTasks] = useState([])
@@ -41,10 +41,17 @@ export default function Home() {
 
     useEffect(() => {
 
-        if (currentLoggedInUserID === "") {
+        let storageUserID
+        storageUserID = localStorage.getItem("storageUserID") || ""
+
+        if (storageUserID === "") {
+
             router.push("/auth/login")
 
         } else {
+
+            setCurrentLoggedInUserID(storageUserID)
+
             const fetchUserID = async () => {
 
                 const request = {

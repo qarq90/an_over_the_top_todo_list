@@ -1,7 +1,7 @@
 "use client"
 
 import {useRouter} from "next/navigation.js"
-import {useAtom} from 'jotai'
+import {useAtom, useAtomValue} from 'jotai'
 import {
     currentUserEmail,
     currentUserID,
@@ -14,9 +14,11 @@ import auth from "@/styles/auth/auth.module.css"
 import {showCustomToast} from "@/lib/helper.js"
 import {Toast} from "primereact/toast"
 import {useRef} from "react"
-import {useAtomValue} from "jotai";
 
 const Login = () => {
+
+    let storageUserID
+    storageUserID = localStorage.getItem("storageUserID") || ""
 
     const router = useRouter()
 
@@ -28,7 +30,7 @@ const Login = () => {
     const toastRef = useRef()
     let id = useAtomValue(currentUserID)
 
-    const loginHandler = async () => {
+    const loginHandler = async (e) => {
 
         let emailRegex = /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
 
@@ -80,6 +82,9 @@ const Login = () => {
                 setPhone(data.result.phone_number)
                 setUsername(data.result.user_name)
                 setCurrentLoggedInUserID(data.result._id)
+
+                e.preventDefault()
+                localStorage.setItem("storageUserID", data.result._id)
 
                 router.push("/")
 

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 import globals from "@/styles/globals.module.css"
 import {FaHistory} from "react-icons/fa"
 import {useAtom} from "jotai"
-import {currentUserID, currentUserName} from "@/states/userState.js"
+import {currentUserID} from "@/states/userState.js"
 import {useRouter} from "next/navigation.js"
 import HistoryCard from "@/components/pages/history/TasksHistory.jsx"
 import styledTasks from "@/styles/pages/tasks/tasks.module.css"
@@ -16,16 +16,23 @@ export default function HistoryPage() {
 
     const router = useRouter()
 
-    const [currentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
 
     const [tasks, setTasks] = useState([])
     const [isTasks, setIsTasks] = useState(true)
 
     useEffect(() => {
-        if (currentLoggedInUserID === "") {
+
+        let storageUserID
+        storageUserID = localStorage.getItem("storageUserID") || ""
+
+        if (storageUserID === "") {
             router.push("/auth/login")
+        } else {
+            setCurrentLoggedInUserID(storageUserID)
         }
-    }, [])
+
+    }, []);
 
     useEffect(() => {
         const fetchCurrentTasks = async () => {

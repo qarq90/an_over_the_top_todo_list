@@ -13,7 +13,7 @@ const AddTask = () => {
 
     const router = useRouter()
 
-    const [currentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserID,setCurrentLoggedInUserID] = useAtom(currentUserID)
 
     const [taskName, setTaskName] = useState("")
     const [taskContent, setTaskContent] = useState("")

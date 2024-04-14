@@ -13,15 +13,20 @@ export default function Add() {
 
     const router = useRouter()
 
-    const [currentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
 
     useEffect(() => {
 
-        if (currentLoggedInUserID === "") {
+        let storageUserID
+        storageUserID = localStorage.getItem("storageUserID") || ""
+
+        if (storageUserID === "") {
             router.push("/auth/login")
+        } else {
+            setCurrentLoggedInUserID(storageUserID)
         }
 
-    }, [])
+    }, []);
 
     return (
         <PageTransition>

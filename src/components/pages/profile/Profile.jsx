@@ -14,7 +14,7 @@ import {useEffect, useRef} from "react"
 
 const Profile = () => {
 
-    const [currentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserID,setCurrentLoggedInUserID] = useAtom(currentUserID)
 
     const [email, setEmail] = useAtom(currentUserEmail)
     const [password, setPassword] = useAtom(currentUserPassword)
@@ -43,7 +43,7 @@ const Profile = () => {
 
                 setEmail(data.result.email_id)
                 setPassword(data.result.password)
-                setEmail(data.result.email_id)
+                setPhone(data.result.phone_number)
                 setUsername(data.result.user_name)
 
                 showCustomToast(

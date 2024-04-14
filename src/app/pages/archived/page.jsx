@@ -4,26 +4,33 @@ import React, {useEffect, useState} from 'react'
 import globals from "@/styles/globals.module.css"
 import {FaArchive} from "react-icons/fa"
 import {useAtom} from "jotai"
-import {currentUserID, currentUserName} from "@/states/userState.js"
+import {currentUserID} from "@/states/userState.js"
 import {useRouter} from "next/navigation.js"
 import {SkeletonTasks} from "@/components/ui/Skeleton.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx"
 import ArchivedTasks from "@/components/pages/archived/ArchivedTasks.jsx"
-import {log} from "next/dist/server/typescript/utils.js";
 import PageTransition from "@/app/layouts/PageTransition.jsx";
 
 export default function ArchivedPage() {
 
     const router = useRouter()
 
-    const [currentLoggedInUserID] = useAtom(currentUserID)
     const [isTasks, setIsTasks] = useState(true)
 
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
+
     useEffect(() => {
-        if (currentLoggedInUserID === "") {
+
+        let storageUserID
+        storageUserID = localStorage.getItem("storageUserID") || ""
+
+        if (storageUserID === "") {
             router.push("/auth/login")
+        } else {
+            setCurrentLoggedInUserID(storageUserID)
         }
-    }, [])
+
+    }, []);
 
     const [tasks, setTasks] = useState([])
 
