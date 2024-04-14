@@ -5,7 +5,7 @@ import globals from "@/styles/globals.module.css"
 import AddTask from "@/components/pages/add/AddTask.jsx"
 import {FaPlus} from "react-icons/fa"
 import {useAtom} from "jotai"
-import {currentUserID, currentUserName} from "@/states/userState.js"
+import {currentUserID} from "@/states/userState.js"
 import {useRouter} from "next/navigation.js"
 import PageTransition from "@/app/layouts/PageTransition.jsx";
 
@@ -16,19 +16,17 @@ export default function Add() {
     const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
 
     useEffect(() => {
-
-        if (typeof window !== 'undefined') {
-            let storageUserID
-            storageUserID = localStorage.getItem("storageUserID") || ""
+        if (typeof window !== 'undefined' && window.localStorage) {
+            let storageUserID = localStorage.getItem("storageUserID") || "";
 
             if (storageUserID === "") {
-                router.push("/auth/login")
+                router.push("/auth/login");
             } else {
-                setCurrentLoggedInUserID(storageUserID)
+                setCurrentLoggedInUserID(storageUserID);
             }
         }
-
     }, []);
+
 
     return (
         <PageTransition>

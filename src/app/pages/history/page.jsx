@@ -22,19 +22,17 @@ export default function HistoryPage() {
     const [isTasks, setIsTasks] = useState(true)
 
     useEffect(() => {
-
-        if (typeof window !== 'undefined') {
-            let storageUserID
-            storageUserID = localStorage.getItem("storageUserID") || ""
+        if (typeof window !== 'undefined' && window.localStorage) {
+            let storageUserID = localStorage.getItem("storageUserID") || "";
 
             if (storageUserID === "") {
-                router.push("/auth/login")
+                router.push("/auth/login");
             } else {
-                setCurrentLoggedInUserID(storageUserID)
+                setCurrentLoggedInUserID(storageUserID);
             }
         }
-
     }, []);
+
 
     useEffect(() => {
         const fetchCurrentTasks = async () => {
