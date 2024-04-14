@@ -7,7 +7,7 @@ import {FaUser} from "react-icons/fa"
 import {router} from "next/navigation.js";
 import {useAtom} from "jotai";
 import {currentUserID} from "@/states/userState.js";
-
+import Cookies from 'js-cookie';
 export default function ProfilePage() {
 
     const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
@@ -15,14 +15,12 @@ export default function ProfilePage() {
     useEffect(() => {
         (async () => {
             try {
-                if (typeof window !== 'undefined' && window.localStorage) {
-                    let storageUserID = window.localStorage.getItem("storageUserID") || "";
+                const storageUserID = Cookies.get("storageUserID") || "";
 
-                    if (storageUserID === "") {
-                        router.push("/auth/login");
-                    } else {
-                        setCurrentLoggedInUserID(storageUserID);
-                    }
+                if (storageUserID === "") {
+                    router.push("/auth/login");
+                } else {
+                    setCurrentLoggedInUserID(storageUserID);
                 }
             } catch (error) {
                 console.log(error);
