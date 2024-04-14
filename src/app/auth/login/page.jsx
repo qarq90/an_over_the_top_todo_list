@@ -13,20 +13,22 @@ export default function ProfilePage() {
     const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
 
     useEffect(() => {
-        try {
-            if (typeof window !== 'undefined' && window.localStorage) {
-                let storageUserID = window.localStorage.getItem("storageUserID") || "";
+        (async () => {
+            try {
+                if (typeof window !== 'undefined' && window.localStorage) {
+                    let storageUserID = window.localStorage.getItem("storageUserID") || "";
 
-                if (storageUserID === "") {
-                    router.push("/auth/login");
-                } else {
-                    setCurrentLoggedInUserID(storageUserID);
+                    if (storageUserID === "") {
+                        router.push("/auth/login");
+                    } else {
+                        setCurrentLoggedInUserID(storageUserID);
+                    }
                 }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
-        }
-    }, {ssr: false}, []);
+        })();
+    }, []);
 
 
     return (
