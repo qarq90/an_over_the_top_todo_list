@@ -19,10 +19,10 @@ export default function TasksPage() {
     const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
     const [isTasks, setIsTasks] = useState(true)
 
+    const storageUserID = Cookies.get("storageUserID") || "";
     useEffect(() => {
         const loadStorage = async () => {
             try {
-                const storageUserID = Cookies.get("storageUserID") || "";
                 if (storageUserID === "") {
                     router.push("/auth/login");
                 } else {
@@ -43,7 +43,7 @@ export default function TasksPage() {
             const fetchCurrentTasks = async () => {
 
                 const request = {
-                    user_id: currentLoggedInUserID,
+                    user_id: storageUserID,
                     status: "pending",
                 }
 

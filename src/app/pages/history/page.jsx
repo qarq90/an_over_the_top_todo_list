@@ -22,10 +22,11 @@ export default function HistoryPage() {
     const [tasks, setTasks] = useState([])
     const [isTasks, setIsTasks] = useState(true)
 
+    const storageUserID = Cookies.get("storageUserID") || "";
+
     useEffect(() => {
         const loadStorage = async () => {
             try {
-                const storageUserID = Cookies.get("storageUserID") || "";
                 if (storageUserID === "") {
                     router.push("/auth/login");
                 } else {
@@ -36,37 +37,35 @@ export default function HistoryPage() {
             }
         };
 
-        loadStorage();
-    }, []);
-
-
-    useEffect(() => {
         const fetchCurrentTasks = async () => {
-
             const request = {
-                user_id: currentLoggedInUserID,
+                user_id: storageUserID,
+            };
+
+            try {
+                const response = await fetch(`/api/post/history`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(request),
+                });
+
+                const data = await response.json();
+
+                if (data.status) {
+                    setTasks(data.result);
+                    setTimeout(() => setIsTasks(false), 2000);
+                } else {
+                    alert("Failed to fetch the tasks");
+                }
+            } catch (error) {
+                console.log(error);
             }
+        };
 
-            const response = await fetch(`/api/post/history`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(request),
-            })
-
-            const data = await response.json()
-
-            if (data.status) {
-                setTasks(data.result)
-                setTimeout(() => setIsTasks(false), 2000)
-            } else {
-                alert("Failed to fetch the tasks")
-            }
-
-        }
-        fetchCurrentTasks()
-    }, [])
+        loadStorage().then(fetchCurrentTasks);
+    }, []);
 
     return (
         <PageTransition>

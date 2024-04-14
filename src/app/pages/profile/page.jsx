@@ -16,10 +16,10 @@ export default function ProfilePage() {
 
     const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
 
+    const storageUserID = Cookies.get("storageUserID") || "";
     useEffect(() => {
         const loadStorage = async () => {
             try {
-                const storageUserID = Cookies.get("storageUserID") || "";
                 if (storageUserID === "") {
                     router.push("/auth/login");
                 } else {

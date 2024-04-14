@@ -11,6 +11,7 @@ export const POST = async (request) => {
         let result = await Task.updateOne({
             _id
         }, {
+            status: "deleted",
             deleted: true,
         })
 

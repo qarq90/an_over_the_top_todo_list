@@ -11,10 +11,13 @@ import {
 import {Toast} from "primereact/toast"
 import {emailRegex, phoneRegex, showCustomToast} from "@/lib/helper.js"
 import {useEffect, useRef} from "react"
+import Cookies from "js-cookie";
 
 const Profile = () => {
 
-    const [currentLoggedInUserID,setCurrentLoggedInUserID] = useAtom(currentUserID)
+    const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
+
+    const storageUserID = Cookies.get("storageUserID") || "";
 
     const [email, setEmail] = useAtom(currentUserEmail)
     const [password, setPassword] = useAtom(currentUserPassword)
@@ -26,7 +29,7 @@ const Profile = () => {
         const fetchCurrentTasks = async () => {
 
             const request = {
-                user_id: currentLoggedInUserID,
+                user_id: storageUserID,
             }
 
             const response = await fetch(`/api/post/user/fetchID`, {
@@ -45,6 +48,7 @@ const Profile = () => {
                 setPassword(data.result.password)
                 setPhone(data.result.phone_number)
                 setUsername(data.result.user_name)
+                setCurrentLoggedInUserID(data.result._id)
 
                 showCustomToast(
                     "success",

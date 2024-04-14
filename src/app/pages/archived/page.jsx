@@ -20,10 +20,10 @@ export default function ArchivedPage() {
 
     const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
 
+    const storageUserID = Cookies.get("storageUserID") || "";
     useEffect(() => {
         const loadStorage = async () => {
             try {
-                const storageUserID = Cookies.get("storageUserID") || "";
                 if (storageUserID === "") {
                     router.push("/auth/login");
                 } else {
@@ -44,7 +44,7 @@ export default function ArchivedPage() {
             const fetchArchivedTasks = async () => {
 
                 const request = {
-                    user_id: currentLoggedInUserID,
+                    user_id: storageUserID,
                     archived: true,
                 }
 
