@@ -17,17 +17,19 @@ export default function ProfilePage() {
 
     useEffect(() => {
         try {
-            if (typeof window !== 'undefined' && window.localStorage) {
-                let storageUserID = window.localStorage.getItem("storageUserID") || "";
+            setTimeout(() => {
+                if (typeof window !== 'undefined' && window.localStorage) {
+                    let storageUserID = window.localStorage.getItem("storageUserID") || "";
 
-                if (storageUserID === "") {
-                    router.push("/auth/login");
-                } else {
-                    setCurrentLoggedInUserID(storageUserID);
+                    if (storageUserID === "") {
+                        router.push("/auth/login");
+                    } else {
+                        setCurrentLoggedInUserID(storageUserID);
+                    }
                 }
-            }
+            }, 1500); // 1500 milliseconds
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }, []);
 
