@@ -42,7 +42,7 @@ export default function Home() {
     useEffect(() => {
 
         let storageUserID
-        storageUserID = localStorage.getItem("storageUserID") || ""
+        storageUserID = window.localStorage.getItem("storageUserID") || ""
 
         if (storageUserID === "") {
 

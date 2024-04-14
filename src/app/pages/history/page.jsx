@@ -24,7 +24,7 @@ export default function HistoryPage() {
     useEffect(() => {
         try {
             if (typeof window !== 'undefined' && window.localStorage) {
-                let storageUserID = localStorage.getItem("storageUserID") || "";
+                let storageUserID = window.localStorage.getItem("storageUserID") || "";
 
                 if (storageUserID === "") {
                     router.push("/auth/login");

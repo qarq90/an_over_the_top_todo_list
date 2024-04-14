@@ -18,7 +18,7 @@ import {useRef} from "react"
 const Login = () => {
 
     let storageUserID
-    storageUserID = localStorage.getItem("storageUserID") || ""
+    storageUserID = window.localStorage.getItem("storageUserID") || ""
 
     const router = useRouter()
 
