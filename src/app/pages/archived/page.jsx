@@ -21,13 +21,15 @@ export default function ArchivedPage() {
 
     useEffect(() => {
 
-        let storageUserID
-        storageUserID = localStorage.getItem("storageUserID") || ""
+        if (typeof window !== 'undefined') {
+            let storageUserID
+            storageUserID = localStorage.getItem("storageUserID") || ""
 
-        if (storageUserID === "") {
-            router.push("/auth/login")
-        } else {
-            setCurrentLoggedInUserID(storageUserID)
+            if (storageUserID === "") {
+                router.push("/auth/login")
+            } else {
+                setCurrentLoggedInUserID(storageUserID)
+            }
         }
 
     }, []);
