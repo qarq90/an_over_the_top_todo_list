@@ -19,14 +19,18 @@ export default function TasksPage() {
     const [isTasks, setIsTasks] = useState(true)
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && window.localStorage) {
-            let storageUserID = localStorage.getItem("storageUserID") || "";
+        try {
+            if (typeof window !== 'undefined' && window.localStorage) {
+                let storageUserID = localStorage.getItem("storageUserID") || "";
 
-            if (storageUserID === "") {
-                router.push("/auth/login");
-            } else {
-                setCurrentLoggedInUserID(storageUserID);
+                if (storageUserID === "") {
+                    router.push("/auth/login");
+                } else {
+                    setCurrentLoggedInUserID(storageUserID);
+                }
             }
+        } catch (error) {
+            console.log(error)
         }
     }, []);
 
