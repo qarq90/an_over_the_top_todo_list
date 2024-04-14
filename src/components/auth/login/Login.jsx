@@ -14,6 +14,7 @@ import auth from "@/styles/auth/auth.module.css"
 import {showCustomToast} from "@/lib/helper.js"
 import {Toast} from "primereact/toast"
 import {useRef} from "react"
+import Cookies from "js-cookie";
 
 const Login = () => {
 
@@ -83,8 +84,8 @@ const Login = () => {
                 setUsername(data.result.user_name)
                 setCurrentLoggedInUserID(data.result._id)
 
-                e.preventDefault()
-                localStorage.setItem("storageUserID", data.result._id)
+                const userId = data.result._id;
+                Cookies.set("storageUserID", userId);
 
                 router.push("/")
 

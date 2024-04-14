@@ -7,27 +7,27 @@ import {FaUserPlus} from "react-icons/fa"
 import {useAtom} from "jotai";
 import {currentUserID} from "@/states/userState.js";
 import {router} from "next/navigation.js";
+import Cookies from "js-cookie";
 
 export default function ProfilePage() {
 
     const [currentLoggedInUserID, setCurrentLoggedInUserID] = useAtom(currentUserID)
 
     useEffect(() => {
-        try {
-            setTimeout(() => {
-                if (typeof window !== 'undefined' && window.localStorage) {
-                    let storageUserID = window.localStorage.getItem("storageUserID") || "";
-
-                    if (storageUserID === "") {
-                        router.push("/auth/login");
-                    } else {
-                        setCurrentLoggedInUserID(storageUserID);
-                    }
+        const loadStorage = async () => {
+            try {
+                const storageUserID = Cookies.get("storageUserID") || "";
+                if (storageUserID === "") {
+                    router.push("/auth/login");
+                } else {
+                    setCurrentLoggedInUserID(storageUserID);
                 }
-            }, 1500); // 1500 milliseconds
-        } catch (error) {
-            console.log(error);
-        }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        loadStorage();
     }, []);
 
 

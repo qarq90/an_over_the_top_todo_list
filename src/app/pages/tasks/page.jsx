@@ -10,6 +10,7 @@ import {FaListAlt} from "react-icons/fa"
 import {SkeletonTasks} from "@/components/ui/Skeleton.jsx"
 import {EmptyResult} from "@/components/ui/EmptyResult.jsx"
 import PageTransition from "@/app/layouts/PageTransition.jsx";
+import Cookies from "js-cookie";
 
 export default function TasksPage() {
 
@@ -19,21 +20,20 @@ export default function TasksPage() {
     const [isTasks, setIsTasks] = useState(true)
 
     useEffect(() => {
-        try {
-            setTimeout(() => {
-                if (typeof window !== 'undefined' && window.localStorage) {
-                    let storageUserID = window.localStorage.getItem("storageUserID") || "";
-
-                    if (storageUserID === "") {
-                        router.push("/auth/login");
-                    } else {
-                        setCurrentLoggedInUserID(storageUserID);
-                    }
+        const loadStorage = async () => {
+            try {
+                const storageUserID = Cookies.get("storageUserID") || "";
+                if (storageUserID === "") {
+                    router.push("/auth/login");
+                } else {
+                    setCurrentLoggedInUserID(storageUserID);
                 }
-            }, 1500); // 1500 milliseconds
-        } catch (error) {
-            console.log(error);
-        }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        loadStorage();
     }, []);
 
 
