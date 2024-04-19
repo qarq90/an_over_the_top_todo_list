@@ -12,6 +12,7 @@ export const POST = async (request) => {
             {
                 _id: _id,
             }, {
+                status: "archived",
                 archived: true,
             })
 
